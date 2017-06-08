@@ -28182,24 +28182,63 @@
 	var _session_actions = __webpack_require__(259);
 	
 	var login = exports.login = function login(user) {
-	  return fetch('/api/session', {
+	  return $.ajax({
 	    method: 'POST',
-	    body: user
+	    url: '/api/session',
+	    data: user
 	  });
 	};
 	
 	var signup = exports.signup = function signup(user) {
-	  return fetch('/api/user', {
+	  return $.ajax({
 	    method: 'POST',
-	    body: user
+	    url: '/api/user',
+	    data: user
 	  });
 	};
 	
 	var logout = exports.logout = function logout() {
-	  return fetch('/api/session', {
-	    method: 'delete'
+	  return $.ajax({
+	    method: 'delete',
+	    url: '/api/session'
 	  });
 	};
+	
+	// import { receiveCurrentUser, receiveErrors } from '../actions/session_actions';
+	//
+	// export const login = (user) => {
+	//   return fetch('/api/session', {
+	//     method: 'POST',
+	//     body: user,
+	//     headers: {
+	//       "Accept": "application/json",
+	//       "Content-Type": "application/json"
+	//     },
+	//     credentials: 'same-origin'
+	//   });
+	// };
+	//
+	// export const signup = (user) => {
+	//   return fetch('/api/user', {
+	//     method: 'POST',
+	//     body: user,
+	//     headers: {
+	//       Accept: 'application/json'},
+	//     credentials: 'same-origin'
+	//
+	//   });
+	// };
+	//
+	// export const logout = () => {
+	//   return fetch('/api/session', {
+	//     method: 'delete',
+	//     headers: {
+	//       "Accept": "application/json",
+	//       "Content-Type": "application/json"
+	//     },
+	//     credentials: 'same-origin'
+	//   });
+	// };
 
 /***/ }),
 /* 261 */
