@@ -16,4 +16,14 @@
 /node_modules
 /yarn-error.log
 
+# Ignore Byebug command history file.
 .byebug_history
+
+# Ignore Node Modules
+/node_modules
+
+# Ignore Webpack Bundle
+/app/assets/javascripts/bundle*
+
+# Ignore Secrets
+/config/secrets.yml

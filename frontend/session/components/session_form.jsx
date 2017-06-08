@@ -113,7 +113,7 @@ class SessionForm extends React.Component {
 		return (
 			<div className="row">
 				<form onSubmit={this.handleSubmit} className="input-field col s6">
-					Welcome to Roost!
+					Welcome to Committerate!
 					<br/>
 					Please {this.props.formType} or {this.navLink()}
 					{this.renderErrors()}

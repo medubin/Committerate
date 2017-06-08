@@ -28035,7 +28035,7 @@
 	            _react2.default.createElement(
 	              'h2',
 	              { className: 'brand-logo' },
-	              'Roost'
+	              'Committerate'
 	            ),
 	            _react2.default.createElement(
 	              'ul',
@@ -28386,7 +28386,7 @@
 					_react2.default.createElement(
 						'form',
 						{ onSubmit: this.handleSubmit, className: 'input-field col s6' },
-						'Welcome to Roost!',
+						'Welcome to Committerate!',
 						_react2.default.createElement('br', null),
 						'Please ',
 						this.props.formType,
@@ -28552,7 +28552,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'landingPage' },
-	        'Welcome to Roost! ',
+	        'Welcome to Committerate! ',
 	        this.props.username
 	      );
 	    }

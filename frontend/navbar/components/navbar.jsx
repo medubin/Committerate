@@ -39,7 +39,7 @@ class Navbar extends React.Component {
           </ul>
 
           <div className="nav-wrapper">
-            <h2 className="brand-logo">Roost</h2>
+            <h2 className="brand-logo">Committerate</h2>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               <li><Link to='/homes/' className="header-item">Homes</Link></li>
               <li><a className="dropdown-button" href="#" data-activates="user-dropdown">{username}</a></li>
