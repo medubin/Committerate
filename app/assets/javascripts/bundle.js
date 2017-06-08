@@ -28071,7 +28071,7 @@
 	            _react2.default.createElement(
 	              'h2',
 	              { className: 'brand-logo' },
-	              'Roost'
+	              'Committerate'
 	            ),
 	            _react2.default.createElement(
 	              'ul',

@@ -51,7 +51,7 @@ class Navbar extends React.Component {
        return (
          <nav>
            <div className="nav-wrapper">
-             <h2 className="brand-logo">Roost</h2>
+             <h2 className="brand-logo">Committerate</h2>
              <ul id="nav-mobile" className="right hide-on-med-and-down">
                <li><Link to="/login"  activeClassName= 'current' className="header-item">Login</Link></li>
                <li><Link to="/signup" activeClassName= 'current' className="header-item">Sign up!</Link></li>
