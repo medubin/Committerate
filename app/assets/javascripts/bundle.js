@@ -28044,15 +28044,6 @@
 	                'li',
 	                null,
 	                _react2.default.createElement(
-	                  _reactRouter.Link,
-	                  { to: '/homes/', className: 'header-item' },
-	                  'Homes'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
 	                  'a',
 	                  { className: 'dropdown-button', href: '#', 'data-activates': 'user-dropdown' },
 	                  username
@@ -28560,7 +28551,6 @@
 	var mapStateToProps = function mapStateToProps(_ref) {
 	  var session = _ref.session;
 	  return {
-	    defaultHomeId: session.currentUser.default_home_id,
 	    username: session.currentUser.username
 	  };
 	};
@@ -28579,13 +28569,6 @@
 	  }
 	
 	  _createClass(Landing, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      if (this.props.defaultHomeId) {
-	        _reactRouter.hashHistory.push('/homes/' + this.props.defaultHomeId);
-	      }
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
