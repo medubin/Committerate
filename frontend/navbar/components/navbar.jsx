@@ -27,23 +27,24 @@ class Navbar extends React.Component {
   }
 
 
+  //   <ul id="user-dropdown" className="dropdown-content">
+  //     <li><Link to={'/users/' + username} className="header-item">Profile</Link></li>
+  //     <li className="divider"></li>
+  //     <li><Link to="/login" className="header-item" onClick={this.logout}>Logout</Link></li>
+  //   </ul>
+
+
   render() {
     if(this.props.currentUser) {
       let username = this.props.currentUser.username;
       return (
-        <nav>
-          <ul id="user-dropdown" className="dropdown-content">
-            <li><Link to={'/users/' + username} className="header-item">Profile</Link></li>
-            <li className="divider"></li>
-            <li><Link to="/login" className="header-item" onClick={this.logout}>Logout</Link></li>
-          </ul>
-
-          <div className="nav-wrapper">
-            <h2 className="brand-logo">Committerate</h2>
-            <ul id="nav-mobile" className="right hide-on-med-and-down">
-              <li><a className="dropdown-button" href="#" data-activates="user-dropdown">{username}</a></li>
+        <nav className='navbar'>
+          <a className='navbar-logo'>Commit</a>
+            <ul>
+              <li><a>test</a></li>
+              <li><a>test</a></li>
+              <li><a>test</a></li>
             </ul>
-  	      </div>
         </nav>
        )
      } else {

@@ -27998,6 +27998,14 @@
 	      this.props.logout();
 	      window.location.reload();
 	    }
+	
+	    //   <ul id="user-dropdown" className="dropdown-content">
+	    //     <li><Link to={'/users/' + username} className="header-item">Profile</Link></li>
+	    //     <li className="divider"></li>
+	    //     <li><Link to="/login" className="header-item" onClick={this.logout}>Logout</Link></li>
+	    //   </ul>
+	
+	
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -28005,49 +28013,40 @@
 	        var username = this.props.currentUser.username;
 	        return _react2.default.createElement(
 	          'nav',
-	          null,
+	          { className: 'navbar' },
 	          _react2.default.createElement(
-	            'ul',
-	            { id: 'user-dropdown', className: 'dropdown-content' },
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/users/' + username, className: 'header-item' },
-	                'Profile'
-	              )
-	            ),
-	            _react2.default.createElement('li', { className: 'divider' }),
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/login', className: 'header-item', onClick: this.logout },
-	                'Logout'
-	              )
-	            )
+	            'a',
+	            { className: 'navbar-logo' },
+	            'Commit'
 	          ),
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'nav-wrapper' },
+	            'ul',
+	            null,
 	            _react2.default.createElement(
-	              'h2',
-	              { className: 'brand-logo' },
-	              'Committerate'
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                'a',
+	                null,
+	                'test'
+	              )
 	            ),
 	            _react2.default.createElement(
-	              'ul',
-	              { id: 'nav-mobile', className: 'right hide-on-med-and-down' },
+	              'li',
+	              null,
 	              _react2.default.createElement(
-	                'li',
+	                'a',
 	                null,
-	                _react2.default.createElement(
-	                  'a',
-	                  { className: 'dropdown-button', href: '#', 'data-activates': 'user-dropdown' },
-	                  username
-	                )
+	                'test'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                'a',
+	                null,
+	                'test'
 	              )
 	            )
 	          )
