@@ -27,13 +27,6 @@ class Navbar extends React.Component {
   }
 
 
-  //   <ul id="user-dropdown" className="dropdown-content">
-  //     <li><Link to={'/users/' + username} className="header-item">Profile</Link></li>
-  //     <li className="divider"></li>
-  //     <li><Link to="/login" className="header-item" onClick={this.logout}>Logout</Link></li>
-  //   </ul>
-
-
   render() {
     if(this.props.currentUser) {
       let username = this.props.currentUser.username;
@@ -49,14 +42,12 @@ class Navbar extends React.Component {
        )
      } else {
        return (
-         <nav>
-           <div className="nav-wrapper">
-             <h2 className="brand-logo">Committerate</h2>
-             <ul id="nav-mobile" className="right hide-on-med-and-down">
-               <li><Link to="/login"  activeClassName= 'current' className="header-item">Login</Link></li>
-               <li><Link to="/signup" activeClassName= 'current' className="header-item">Sign up!</Link></li>
+         <nav className='navbar'>
+           <a className='navbar-logo'>Commit</a>
+             <ul>
+               <li><Link to="/login">Login</Link></li>
+               <li><Link to="/signup">Sign up!</Link></li>
              </ul>
-           </div>
          </nav>
        )
      }

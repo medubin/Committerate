@@ -27998,14 +27998,6 @@
 	      this.props.logout();
 	      window.location.reload();
 	    }
-	
-	    //   <ul id="user-dropdown" className="dropdown-content">
-	    //     <li><Link to={'/users/' + username} className="header-item">Profile</Link></li>
-	    //     <li className="divider"></li>
-	    //     <li><Link to="/login" className="header-item" onClick={this.logout}>Logout</Link></li>
-	    //   </ul>
-	
-	
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -28054,35 +28046,31 @@
 	      } else {
 	        return _react2.default.createElement(
 	          'nav',
-	          null,
+	          { className: 'navbar' },
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'nav-wrapper' },
+	            'a',
+	            { className: 'navbar-logo' },
+	            'Commit'
+	          ),
+	          _react2.default.createElement(
+	            'ul',
+	            null,
 	            _react2.default.createElement(
-	              'h2',
-	              { className: 'brand-logo' },
-	              'Committerate'
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/login' },
+	                'Login'
+	              )
 	            ),
 	            _react2.default.createElement(
-	              'ul',
-	              { id: 'nav-mobile', className: 'right hide-on-med-and-down' },
+	              'li',
+	              null,
 	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  _reactRouter.Link,
-	                  { to: '/login', activeClassName: 'current', className: 'header-item' },
-	                  'Login'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  _reactRouter.Link,
-	                  { to: '/signup', activeClassName: 'current', className: 'header-item' },
-	                  'Sign up!'
-	                )
+	                _reactRouter.Link,
+	                { to: '/signup' },
+	                'Sign up!'
 	              )
 	            )
 	          )
