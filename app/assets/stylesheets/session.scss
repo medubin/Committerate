@@ -1,10 +1,10 @@
-#session-main{
+#form-main{
 	width:100%;
 	float:left;
 	padding-top:0px;
 }
 
-#session-form {
+#form-form {
 	background-color:rgba(72,72,72,0.4);
 	padding-left:35px;
 	padding-right:35px;
@@ -20,7 +20,7 @@
   -webkit-border-radius: 7px;
 }
 
-.session-input {
+.form-input {
 	color:#3c3c3c;
 	font-family: Helvetica, Arial, sans-serif;
   font-weight:500;
@@ -38,7 +38,7 @@
   border: 3px solid rgba(0,0,0,0);
 }
 
-.session-input:focus{
+.form-input:focus{
 	background: #fff;
 	box-shadow: 0;
 	border: 3px solid #3498db;
@@ -144,7 +144,7 @@ input:hover,input:focus {
 }
 
 @media only screen and (max-width: 580px) {
-	#session-div{
+	#form-div{
 		left: 3%;
 		margin-right: 3%;
 		width: 88%;

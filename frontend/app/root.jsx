@@ -8,6 +8,7 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import App from './app'
 import SessionForm from '../session/components/session_form'
 import Landing from '../landing/landing'
+import NewActivityForm from "../activity/components/new_activity_form/new_activity_form"
 
 
 const Root = ({ store }) => {
@@ -34,6 +35,7 @@ const Root = ({ store }) => {
            <IndexRoute component={Landing} onEnter={_ensureLoggedIn} />
            <Route path="/login" component={SessionForm} onEnter={_redirectIfLoggedIn} />
            <Route path="/signup" component={SessionForm} onEnter={_redirectIfLoggedIn} />
+           <Route path="/activity/new" component={NewActivityForm} onEnter={_ensureLoggedIn} />
          </Route>
        </Router>
      </Provider>

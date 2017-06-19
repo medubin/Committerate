@@ -22,7 +22,6 @@ const mapDispatchToProps = (dispatch, { location }) => {
 };
 
 
-
 class SessionForm extends React.Component {
 	constructor(props) {
 		super(props);
@@ -98,38 +97,38 @@ class SessionForm extends React.Component {
 		let signUpOptions;
 		if (this.props.formType === 'signup') {
 			signUpOptions =
-      <p className="email">
+      <p>
 				<input type='password'
 				value={this.state.passwordCheck}
 				onChange={this.update('passwordCheck')}
-				className="validate session-input"
+				className="validate form-input"
 				placeholder="Retype Password" />
       </p>
 		}
 
 
 		return (
-			<div id="session-main">
-        <div id="session-form">
+			<div id="form-main">
+        <div id="form-form">
   				<form onSubmit={this.handleSubmit} >
   					Welcome to Commiter!
   					<br/>
   					Please {this.props.formType} or {this.navLink()}
   					{this.renderErrors()}
 
-  					<p className="name">
+  					<p>
   						<input type='text'
   						value={this.state.username}
   						onChange={this.update('username')}
-  						className="validate session-input"
+  						className="validate form-input"
               placeholder="Username" />
   					</p>
 
-  					<p className="email">
+  					<p>
   						<input type='password'
   						value={this.state.password}
   						onChange={this.update('password')}
-  						className="validate session-input"
+  						className="validate form-input"
   						placeholder="Password" />
   					</p>
 
@@ -147,5 +146,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRouter(SessionForm));
-
-// export default withRouter(SessionForm);
