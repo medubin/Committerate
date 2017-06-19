@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { login, logout, signup } from '../actions/session_actions';
 
 
+
 const mapStateToProps = ({ session }) => ({
   loggedIn: Boolean(session.currentUser),
   errors: session.errors
@@ -19,6 +20,7 @@ const mapDispatchToProps = (dispatch, { location }) => {
     formType
   };
 };
+
 
 
 class SessionForm extends React.Component {
@@ -96,52 +98,46 @@ class SessionForm extends React.Component {
 		let signUpOptions;
 		if (this.props.formType === 'signup') {
 			signUpOptions =
-			<div className="row">
-        <div className="input-field col s6">
-					<input type='password'
-					value={this.state.passwordCheck}
-					onChange={this.update('passwordCheck')}
-					className="validate"
- 					/>
-          <label for="passwordCheck">Retype Password</label>
-        </div>
-      </div>
+      <p className="email">
+				<input type='password'
+				value={this.state.passwordCheck}
+				onChange={this.update('passwordCheck')}
+				className="validate session-input"
+				placeholder="Retype Password" />
+      </p>
 		}
 
+
 		return (
-			<div className="row">
-				<form onSubmit={this.handleSubmit} className="input-field col s6">
-					Welcome to Committerate!
-					<br/>
-					Please {this.props.formType} or {this.navLink()}
-					{this.renderErrors()}
+			<div id="session-main">
+        <div id="session-form">
+  				<form onSubmit={this.handleSubmit} >
+  					Welcome to Commiter!
+  					<br/>
+  					Please {this.props.formType} or {this.navLink()}
+  					{this.renderErrors()}
 
-					<div className="row">
-						<div className="input-field col s6">
-							<input type='text'
-							value={this.state.username}
-							onChange={this.update('username')}
-							className="validate" />
-							<label for='username'> Username:
-							</label>
-						</div>
-					</div>
+  					<p className="name">
+  						<input type='text'
+  						value={this.state.username}
+  						onChange={this.update('username')}
+  						className="validate session-input"
+              placeholder="Username" />
+  					</p>
 
-					<div className="row">
-						<div className="input-field col s6">
-							<input type='password'
-							value={this.state.password}
-							onChange={this.update('password')}
-							className="validate"
- 							/>
-							<label for='password'> Password:
-							</label>
-						</div>
-					</div>
+  					<p className="email">
+  						<input type='password'
+  						value={this.state.password}
+  						onChange={this.update('password')}
+  						className="validate session-input"
+  						placeholder="Password" />
+  					</p>
 
-					{ signUpOptions }
-					<input type="submit" value="Submit" className="btn waves-effect waves-light" />
-				</form>
+  					{ signUpOptions }
+  					<input type="submit" value="Submit" className="ease" id="button-blue" />
+
+  				</form>
+        </div>
 			</div>
 		);
 	}

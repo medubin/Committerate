@@ -14,7 +14,9 @@ class Landing extends React.Component {
 
     render() {
       return <div className="landingPage">
-        Welcome to Committerate! {this.props.username}
+        <button className='activity-button'>
+            Hey
+        </button>
       </div>
     }
 }

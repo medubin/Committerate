@@ -28378,75 +28378,53 @@
 				var signUpOptions = void 0;
 				if (this.props.formType === 'signup') {
 					signUpOptions = _react2.default.createElement(
-						'div',
-						{ className: 'row' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'input-field col s6' },
-							_react2.default.createElement('input', { type: 'password',
-								value: this.state.passwordCheck,
-								onChange: this.update('passwordCheck'),
-								className: 'validate'
-							}),
-							_react2.default.createElement(
-								'label',
-								{ 'for': 'passwordCheck' },
-								'Retype Password'
-							)
-						)
+						'p',
+						{ className: 'email' },
+						_react2.default.createElement('input', { type: 'password',
+							value: this.state.passwordCheck,
+							onChange: this.update('passwordCheck'),
+							className: 'validate session-input',
+							placeholder: 'Retype Password' })
 					);
 				}
 	
 				return _react2.default.createElement(
 					'div',
-					{ className: 'row' },
+					{ id: 'session-main' },
 					_react2.default.createElement(
-						'form',
-						{ onSubmit: this.handleSubmit, className: 'input-field col s6' },
-						'Welcome to Committerate!',
-						_react2.default.createElement('br', null),
-						'Please ',
-						this.props.formType,
-						' or ',
-						this.navLink(),
-						this.renderErrors(),
+						'div',
+						{ id: 'session-form' },
 						_react2.default.createElement(
-							'div',
-							{ className: 'row' },
+							'form',
+							{ onSubmit: this.handleSubmit },
+							'Welcome to Commiter!',
+							_react2.default.createElement('br', null),
+							'Please ',
+							this.props.formType,
+							' or ',
+							this.navLink(),
+							this.renderErrors(),
 							_react2.default.createElement(
-								'div',
-								{ className: 'input-field col s6' },
+								'p',
+								{ className: 'name' },
 								_react2.default.createElement('input', { type: 'text',
 									value: this.state.username,
 									onChange: this.update('username'),
-									className: 'validate' }),
-								_react2.default.createElement(
-									'label',
-									{ 'for': 'username' },
-									' Username:'
-								)
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'row' },
+									className: 'validate session-input',
+									placeholder: 'Username' })
+							),
 							_react2.default.createElement(
-								'div',
-								{ className: 'input-field col s6' },
+								'p',
+								{ className: 'email' },
 								_react2.default.createElement('input', { type: 'password',
 									value: this.state.password,
 									onChange: this.update('password'),
-									className: 'validate'
-								}),
-								_react2.default.createElement(
-									'label',
-									{ 'for': 'password' },
-									' Password:'
-								)
-							)
-						),
-						signUpOptions,
-						_react2.default.createElement('input', { type: 'submit', value: 'Submit', className: 'btn waves-effect waves-light' })
+									className: 'validate session-input',
+									placeholder: 'Password' })
+							),
+							signUpOptions,
+							_react2.default.createElement('input', { type: 'submit', value: 'Submit', className: 'ease', id: 'button-blue' })
+						)
 					)
 				);
 			}
@@ -28561,8 +28539,11 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'landingPage' },
-	        'Welcome to Committerate! ',
-	        this.props.username
+	        _react2.default.createElement(
+	          'button',
+	          { className: 'activity-button' },
+	          'Hey'
+	        )
 	      );
 	    }
 	  }]);
