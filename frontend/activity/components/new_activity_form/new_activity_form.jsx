@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import { createActivity } from '../../actions/activity_actions'
 
 const mapStateToProps = ({ }) => ({
 
 });
 
 const mapDispatchToProps = (dispatch) => ({
-
+  createActivity: activity => dispatch(createActivity(activity))
 });
 
 class NewActivityForm extends React.Component {
@@ -18,11 +19,15 @@ class NewActivityForm extends React.Component {
       description: "",
       value: ""
     }
+    this.update = this.update.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
 
   }
 
-  handleSubmit() {
-    aler('yay')
+  handleSubmit(e) {
+    e.preventDefault();
+    const activity = this.state;
+    this.props.createActivity({ activity })
 
   }
 

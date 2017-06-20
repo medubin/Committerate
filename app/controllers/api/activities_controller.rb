@@ -11,6 +11,19 @@ class Api::ActivitiesController < ApplicationController
   end
 
   def create
+    if (!current_user)
+      render json: "User not found", status: 422
+    end
+
+    @activity = Activity.new(activity_params)
+    @activity.user_id = current_user.id
+    @activity.active = true;
+
+    if (!@activity.save)
+      render json: @activity.errors.full_messages, status: 422
+    end
+
+    render "api/activities/show"
   end
 
   def destroy

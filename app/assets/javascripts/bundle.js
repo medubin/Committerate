@@ -28576,6 +28576,8 @@
 	
 	var _reactRedux = __webpack_require__(160);
 	
+	var _activity_actions = __webpack_require__(354);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -28595,7 +28597,11 @@
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {};
+	  return {
+	    createActivity: function createActivity(activity) {
+	      return dispatch((0, _activity_actions.createActivity)(activity));
+	    }
+	  };
 	};
 	
 	var NewActivityForm = function (_React$Component) {
@@ -28611,14 +28617,18 @@
 	      description: "",
 	      value: ""
 	    };
+	    _this.update = _this.update.bind(_this);
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
 	
 	    return _this;
 	  }
 	
 	  _createClass(NewActivityForm, [{
 	    key: 'handleSubmit',
-	    value: function handleSubmit() {
-	      aler('yay');
+	    value: function handleSubmit(e) {
+	      e.preventDefault();
+	      var activity = this.state;
+	      this.props.createActivity({ activity: activity });
 	    }
 	  }, {
 	    key: 'update',
@@ -31472,6 +31482,46 @@
 	thunk.withExtraArgument = createThunkMiddleware;
 	
 	exports['default'] = thunk;
+
+/***/ }),
+/* 354 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.createActivity = undefined;
+	
+	var _activity_api_util = __webpack_require__(355);
+	
+	var APIUtil = _interopRequireWildcard(_activity_api_util);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	var createActivity = exports.createActivity = function createActivity(activity) {
+	  return function (dispatch) {
+	    return APIUtil.createActivity(activity);
+	  };
+	};
+
+/***/ }),
+/* 355 */
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var createActivity = exports.createActivity = function createActivity(activity) {
+	  return $.ajax({
+	    method: 'POST',
+	    url: 'api/activities',
+	    data: activity
+	  });
+	};
 
 /***/ })
 /******/ ]);
