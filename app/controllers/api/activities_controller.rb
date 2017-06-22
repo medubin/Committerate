@@ -1,7 +1,13 @@
 class Api::ActivitiesController < ApplicationController
 
   def index
-    @activities = Activity.find_by(user_id: params[:user_id])
+    if (!current_user)
+      render json: "User not found", status: 422
+    end
+
+
+    @activities = current_user.activities
+
     render "api/activities/index"
   end
 

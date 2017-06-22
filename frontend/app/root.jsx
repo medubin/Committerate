@@ -9,6 +9,8 @@ import App from './app'
 import SessionForm from '../session/components/session_form'
 import Landing from '../landing/landing'
 import NewActivityForm from "../activity/components/new_activity_form/new_activity_form"
+import ActivitiesList from "../activity/components/activities_list/activities_list"
+
 
 
 const Root = ({ store }) => {
@@ -36,6 +38,7 @@ const Root = ({ store }) => {
            <Route path="/login" component={SessionForm} onEnter={_redirectIfLoggedIn} />
            <Route path="/signup" component={SessionForm} onEnter={_redirectIfLoggedIn} />
            <Route path="/activity/new" component={NewActivityForm} onEnter={_ensureLoggedIn} />
+           <Route path="/activity/" component={ActivitiesList} onEnter={_ensureLoggedIn} />
          </Route>
        </Router>
      </Provider>
