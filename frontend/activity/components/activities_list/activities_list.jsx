@@ -21,8 +21,9 @@ class ActivityList extends React.Component {
   renderActivities() {
     let activities = []
     for(let key in this.props.activities) {
+      let activityType = 'activity-' + (this.props.activities[key].value > 0 ? 'good' : 'bad')
       activities.push(
-        <div className='activity-list-item' key={key}>
+        <div className={'activity-list-item ' + activityType}  key={key}>
             {this.props.activities[key].name}
         </div>
       )

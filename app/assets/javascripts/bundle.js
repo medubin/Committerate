@@ -28834,9 +28834,10 @@
 	    value: function renderActivities() {
 	      var activities = [];
 	      for (var key in this.props.activities) {
+	        var activityType = 'activity-' + (this.props.activities[key].value > 0 ? 'good' : 'bad');
 	        activities.push(_react2.default.createElement(
 	          'div',
-	          { className: 'activity-list-item', key: key },
+	          { className: 'activity-list-item ' + activityType, key: key },
 	          this.props.activities[key].name
 	        ));
 	      }

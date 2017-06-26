@@ -9,7 +9,14 @@
     padding: 20px;
     width: 150px;
     height: 75px;
-    border: solid 1px;
+    border: solid 3px;
     margin-top: 10px;
+  }
+  .activity-good {
+    border-color: green;
+  }
+
+  .activity-bad {
+    border-color: red;
   }
 }
