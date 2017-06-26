@@ -4,11 +4,13 @@ import Navbar from '../navbar/components/navbar';
 
 
 const App = ({ children }) => (
-  <div>
+  <div className='app-container'>
     <header>
       <Navbar />
     </header>
+    <div className='body-container'>
       {children}
+    </div>
   </div>
 );
 

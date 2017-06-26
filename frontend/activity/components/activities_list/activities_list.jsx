@@ -22,23 +22,17 @@ class ActivityList extends React.Component {
     let activities = []
     for(let key in this.props.activities) {
       activities.push(
-        <div>
+        <div className='activity-list-item' key={key}>
             {this.props.activities[key].name}
-            -  
-            {this.props.activities[key].description}
         </div>
       )
   }
   return activities
 }
 
-
-
-
   render() {
-    console.log(this.props.activities)
     return (
-      <div>
+      <div className="activity-list-container">
         {this.renderActivities()}
       </div>
     )

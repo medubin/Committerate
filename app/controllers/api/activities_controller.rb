@@ -4,10 +4,9 @@ class Api::ActivitiesController < ApplicationController
     if (!current_user)
       render json: "User not found", status: 422
     end
-
-
     @activities = current_user.activities
-
+    # @a = current_user.get_score
+    # debugger
     render "api/activities/index"
   end
 

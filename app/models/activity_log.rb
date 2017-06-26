@@ -4,4 +4,6 @@ class ActivityLog < ApplicationRecord
   has_one :user,
   through: :activity
 
+
+
 end

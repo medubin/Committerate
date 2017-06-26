@@ -27931,13 +27931,17 @@
 	  var children = _ref.children;
 	  return _react2.default.createElement(
 	    'div',
-	    null,
+	    { className: 'app-container' },
 	    _react2.default.createElement(
 	      'header',
 	      null,
 	      _react2.default.createElement(_navbar2.default, null)
 	    ),
-	    children
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'body-container' },
+	      children
+	    )
 	  );
 	};
 	
@@ -28028,27 +28032,27 @@
 	              'li',
 	              null,
 	              _react2.default.createElement(
-	                'a',
-	                null,
-	                'test'
+	                _reactRouter.Link,
+	                { to: '/' },
+	                'Home'
 	              )
 	            ),
 	            _react2.default.createElement(
 	              'li',
 	              null,
 	              _react2.default.createElement(
-	                'a',
-	                null,
-	                'test'
+	                _reactRouter.Link,
+	                { to: '/activity/' },
+	                'Log Activity'
 	              )
 	            ),
 	            _react2.default.createElement(
 	              'li',
 	              null,
 	              _react2.default.createElement(
-	                'a',
-	                null,
-	                'test'
+	                _reactRouter.Link,
+	                { to: '/activity/new/' },
+	                'New Activity'
 	              )
 	            )
 	          )
@@ -28832,10 +28836,8 @@
 	      for (var key in this.props.activities) {
 	        activities.push(_react2.default.createElement(
 	          'div',
-	          null,
-	          this.props.activities[key].name,
-	          '-',
-	          this.props.activities[key].description
+	          { className: 'activity-list-item', key: key },
+	          this.props.activities[key].name
 	        ));
 	      }
 	      return activities;
@@ -28843,10 +28845,9 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log(this.props.activities);
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'activity-list-container' },
 	        this.renderActivities()
 	      );
 	    }

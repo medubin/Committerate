@@ -12,6 +12,17 @@ class User < ApplicationRecord
   has_many :activity_logs,
   through: :activities
 
+  # def get_score
+  #   self.activities
+  #   # sql = "
+  #   # SELECT SUM(activity_logs
+  #   # FROM users AS u
+  #   # JOIN activities AS a ON u.id = a.user_id
+  #   # JOIN activity_logs AS al ON a.id = al.activity_id
+  #   # WHERE
+  #   # "
+  # end
+
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
     return nil unless user && user.valid_password?(password)

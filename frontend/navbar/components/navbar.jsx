@@ -34,9 +34,9 @@ class Navbar extends React.Component {
         <nav className='navbar'>
           <a className='navbar-logo'>Commit</a>
             <ul>
-              <li><a>test</a></li>
-              <li><a>test</a></li>
-              <li><a>test</a></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/activity/">Log Activity</Link></li>
+              <li><Link to="/activity/new/">New Activity</Link></li>
             </ul>
         </nav>
        )
