@@ -1,9 +1,9 @@
 class Api::ActivityLogsController < ApplicationController
   def create
     @activity_log = ActivityLog.new(activity_log_params)
-    if @activity_log_params.save
+    if @activity_log.save
       # probably will have to render something else
-      render "api/activities/show"
+      render json: @activity_log, status: 200
     else
       render json: @activity_log.errors.full_messages, status: 422
     end
@@ -17,5 +17,10 @@ class Api::ActivityLogsController < ApplicationController
   # def aggregate
   #   @activity_logs = ActivityLog.find_by(user_id: params[:user_id])
   # end
+
+  private
+  def activity_log_params
+    params.require(:activity_log).permit(:activity_id)
+  end
 
 end

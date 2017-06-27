@@ -28708,7 +28708,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.receiveErrors = exports.receiveActivities = exports.fetchActivities = exports.createActivity = exports.RECEIVE_ERRORS = exports.RECEIVE_ACTIVITIES = undefined;
+	exports.receiveErrors = exports.receiveActivities = exports.fetchActivities = exports.logActivity = exports.createActivity = exports.RECEIVE_ERRORS = exports.RECEIVE_ACTIVITIES = undefined;
 	
 	var _activity_api_util = __webpack_require__(266);
 	
@@ -28722,6 +28722,12 @@
 	var createActivity = exports.createActivity = function createActivity(activity) {
 	  return function (dispatch) {
 	    return APIUtil.createActivity(activity);
+	  };
+	};
+	
+	var logActivity = exports.logActivity = function logActivity(activity) {
+	  return function (dispatch) {
+	    return APIUtil.logActivity(activity);
 	  };
 	};
 	
@@ -28770,6 +28776,16 @@
 	    url: 'api/activities'
 	  });
 	};
+	
+	var logActivity = exports.logActivity = function logActivity(activity) {
+	  return $.ajax({
+	    method: 'POST',
+	    url: 'api/activity_logs',
+	    data: { activity_log: { activity_id: activity.id } }
+	  });
+	};
+	
+	//todo nest namespaces in routes and fix these!!!
 
 /***/ }),
 /* 267 */
@@ -28812,6 +28828,9 @@
 	  return {
 	    fetchActivities: function fetchActivities(activities) {
 	      return dispatch((0, _activity_actions.fetchActivities)(activities));
+	    },
+	    logActivity: function logActivity(activity) {
+	      return dispatch((0, _activity_actions.logActivity)(activity));
 	    }
 	  };
 	};
@@ -28830,16 +28849,31 @@
 	  }
 	
 	  _createClass(ActivityList, [{
+	    key: 'handleClick',
+	    value: function handleClick(e, key) {
+	      e.preventDefault();
+	      this.props.logActivity(this.props.activities[key]);
+	    }
+	  }, {
 	    key: 'renderActivities',
 	    value: function renderActivities() {
+	      var _this2 = this;
+	
 	      var activities = [];
-	      for (var key in this.props.activities) {
-	        var activityType = 'activity-' + (this.props.activities[key].value > 0 ? 'good' : 'bad');
+	
+	      var _loop = function _loop(key) {
+	        var activityType = 'activity-' + (_this2.props.activities[key].value > 0 ? 'good' : 'bad');
 	        activities.push(_react2.default.createElement(
 	          'div',
-	          { className: 'activity-list-item ' + activityType, key: key },
-	          this.props.activities[key].name
+	          { className: 'activity-list-item ' + activityType, key: key, onClick: function onClick(e) {
+	              return _this2.handleClick(e, key);
+	            } },
+	          _this2.props.activities[key].name
 	        ));
+	      };
+	
+	      for (var key in this.props.activities) {
+	        _loop(key);
 	      }
 	      return activities;
 	    }
