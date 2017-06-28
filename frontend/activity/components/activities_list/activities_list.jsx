@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchActivities, logActivity  } from '../../actions/activity_actions'
 
 const mapStateToProps = ({activities}) => ({
-  activities: activities.activities
+  activities: activities.activities,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -17,23 +17,29 @@ class ActivityList extends React.Component {
     super(props);
     this.props.fetchActivities()
     this.renderActivities = this.renderActivities.bind(this)
+    // this.state = {
+    //   hover: -1
+    // }
   }
 
 
   handleClick(e, key) {
     e.preventDefault();
     this.props.logActivity(this.props.activities[key])
-
   }
+
+  // handleHover(e, key) {
+  //
+  // }
 
   renderActivities() {
     let activities = []
     for(let key in this.props.activities) {
       let activityType = 'activity-' + (this.props.activities[key].value > 0 ? 'good' : 'bad')
       activities.push(
-        <div className={'activity-list-item ' + activityType}  key={key} onClick={ (e) => this.handleClick(e, key) }>
+        <a href='#' className={'activity-list-item ' + activityType}  key={key} onClick={ (e) => this.handleClick(e, key) }>
             {this.props.activities[key].name}
-        </div>
+        </a>
       )
   }
   return activities

@@ -11,8 +11,12 @@ class Api::ActivitiesController < ApplicationController
   end
 
   def show
-    @activity = Activity.find(params[:id])
-    render "api/activities/show"
+    # @activity = Activity.find(params[:id])
+    # render "api/activities/show"
+    @aggregate = {
+      score: current_user.get_score
+    }
+    render json @aggregate, status: 200
   end
 
   def create

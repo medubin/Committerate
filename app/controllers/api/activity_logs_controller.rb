@@ -14,10 +14,6 @@ class Api::ActivityLogsController < ApplicationController
     render "api/activity_logs/index"
   end
 
-  # def aggregate
-  #   @activity_logs = ActivityLog.find_by(user_id: params[:user_id])
-  # end
-
   private
   def activity_log_params
     params.require(:activity_log).permit(:activity_id)

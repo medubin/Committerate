@@ -19,4 +19,13 @@
   .activity-bad {
     border-color: red;
   }
+
+  .activity-bad:hover {
+    background-color: lighten(red, 20);
+  }
+
+  .activity-good:hover {
+    background-color: lighten(green, 50);
+  }
+
 }

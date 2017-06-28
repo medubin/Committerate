@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :activities, only: [:create, :show, :index]
     resources :activity_logs, only: [:create, :show, :index]
     resource :session, only: [:create, :destroy, :show]
+    resource :activity_stats, only: [:show]
 
     resource :user, only: [:create]
   end

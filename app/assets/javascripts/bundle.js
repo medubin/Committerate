@@ -28517,6 +28517,8 @@
 	
 	var _reactRedux = __webpack_require__(160);
 	
+	var _activity_stats_actions = __webpack_require__(359);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28526,23 +28528,33 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var mapStateToProps = function mapStateToProps(_ref) {
-	  var session = _ref.session;
+	  var session = _ref.session,
+	      activityStats = _ref.activityStats;
 	  return {
-	    username: session.currentUser.username
+	    username: session.currentUser.username,
+	    score: activityStats.score
 	  };
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {};
+	  return {
+	    fetchActivityStats: function fetchActivityStats(activityStats) {
+	      return dispatch((0, _activity_stats_actions.fetchActivityStats)(activityStats));
+	    }
+	
+	  };
 	};
 	
 	var Landing = function (_React$Component) {
 	  _inherits(Landing, _React$Component);
 	
-	  function Landing() {
+	  function Landing(props) {
 	    _classCallCheck(this, Landing);
 	
-	    return _possibleConstructorReturn(this, (Landing.__proto__ || Object.getPrototypeOf(Landing)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (Landing.__proto__ || Object.getPrototypeOf(Landing)).call(this, props));
+	
+	    _this.props.fetchActivityStats();
+	    return _this;
 	  }
 	
 	  _createClass(Landing, [{
@@ -28554,7 +28566,7 @@
 	        _react2.default.createElement(
 	          'button',
 	          { className: 'activity-button' },
-	          'Hey'
+	          this.props.score
 	        )
 	      );
 	    }
@@ -28841,11 +28853,14 @@
 	  function ActivityList(props) {
 	    _classCallCheck(this, ActivityList);
 	
-	    var _this = _possibleConstructorReturn(this, (ActivityList.__proto__ || Object.getPrototypeOf(ActivityList)).call(this, props));
+	    var _this
+	    // this.state = {
+	    //   hover: -1
+	    // }
+	    = _possibleConstructorReturn(this, (ActivityList.__proto__ || Object.getPrototypeOf(ActivityList)).call(this, props));
 	
 	    _this.props.fetchActivities();
-	    _this.renderActivities = _this.renderActivities.bind(_this);
-	    return _this;
+	    _this.renderActivities = _this.renderActivities.bind(_this);return _this;
 	  }
 	
 	  _createClass(ActivityList, [{
@@ -28854,6 +28869,11 @@
 	      e.preventDefault();
 	      this.props.logActivity(this.props.activities[key]);
 	    }
+	
+	    // handleHover(e, key) {
+	    //
+	    // }
+	
 	  }, {
 	    key: 'renderActivities',
 	    value: function renderActivities() {
@@ -28864,8 +28884,8 @@
 	      var _loop = function _loop(key) {
 	        var activityType = 'activity-' + (_this2.props.activities[key].value > 0 ? 'good' : 'bad');
 	        activities.push(_react2.default.createElement(
-	          'div',
-	          { className: 'activity-list-item ' + activityType, key: key, onClick: function onClick(e) {
+	          'a',
+	          { href: '#', className: 'activity-list-item ' + activityType, key: key, onClick: function onClick(e) {
 	              return _this2.handleClick(e, key);
 	            } },
 	          _this2.props.activities[key].name
@@ -28942,11 +28962,16 @@
 	
 	var _activity_reducer2 = _interopRequireDefault(_activity_reducer);
 	
+	var _activity_stats_reducer = __webpack_require__(358);
+	
+	var _activity_stats_reducer2 = _interopRequireDefault(_activity_stats_reducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var RootReducer = (0, _redux.combineReducers)({
 	  session: _session_reducer2.default,
-	  activities: _activity_reducer2.default
+	  activities: _activity_reducer2.default,
+	  activityStats: _activity_stats_reducer2.default
 	});
 	
 	exports.default = RootReducer;
@@ -31733,6 +31758,97 @@
 	thunk.withExtraArgument = createThunkMiddleware;
 	
 	exports['default'] = thunk;
+
+/***/ }),
+/* 358 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _activity_stats_actions = __webpack_require__(359);
+	
+	var _merge = __webpack_require__(271);
+	
+	var _merge2 = _interopRequireDefault(_merge);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _defaultState = Object.freeze({
+	  score: null
+	});
+	
+	var ActivityStatsReducer = function ActivityStatsReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _defaultState;
+	  var action = arguments[1];
+	
+	  var newState = (0, _merge2.default)({}, state);
+	  Object.freeze(state);
+	
+	  switch (action.type) {
+	    case _activity_stats_actions.RECEIVE_ACTIVITY_STATS:
+	      console.log(action);
+	      newState.score = action.activityStats.score;
+	      return newState;
+	    default:
+	      return state;
+	  }
+	};
+	
+	exports.default = ActivityStatsReducer;
+
+/***/ }),
+/* 359 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.receiveActivityStats = exports.fetchActivityStats = exports.RECEIVE_ACTIVITY_STATS = undefined;
+	
+	var _activity_stats_api_util = __webpack_require__(360);
+	
+	var APIUtil = _interopRequireWildcard(_activity_stats_api_util);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	var RECEIVE_ACTIVITY_STATS = exports.RECEIVE_ACTIVITY_STATS = "RECEIVE_ACTIVITY_STATS";
+	
+	var fetchActivityStats = exports.fetchActivityStats = function fetchActivityStats() {
+	  return function (dispatch) {
+	    APIUtil.fetchActivityStats().then(function (activityStats) {
+	      return dispatch(receiveActivityStats(activityStats));
+	    });
+	  };
+	};
+	
+	var receiveActivityStats = exports.receiveActivityStats = function receiveActivityStats(activityStats) {
+	  return {
+	    type: RECEIVE_ACTIVITY_STATS,
+	    activityStats: activityStats
+	  };
+	};
+
+/***/ }),
+/* 360 */
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var fetchActivityStats = exports.fetchActivityStats = function fetchActivityStats() {
+	  return $.ajax({
+	    method: 'GET',
+	    url: 'api/activity_stats/'
+	  });
+	};
 
 /***/ })
 /******/ ]);
