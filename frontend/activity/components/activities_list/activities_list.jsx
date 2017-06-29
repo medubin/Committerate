@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchActivities, logActivity  } from '../../actions/activity_actions'
+import { fetchActivities  } from '../../actions/activity_actions'
+import Activity from './activity'
 
 const mapStateToProps = ({activities}) => ({
   activities: activities.activities,
@@ -9,9 +10,9 @@ const mapStateToProps = ({activities}) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchActivities: activities => dispatch(fetchActivities(activities)),
-  logActivity: activity => dispatch(logActivity(activity))
 });
 
+//TODO the name of this doesn't match the file name :(
 class ActivityList extends React.Component {
   constructor(props) {
     super(props);
@@ -20,10 +21,6 @@ class ActivityList extends React.Component {
   }
 
 
-  handleClick(e, key) {
-    e.preventDefault();
-    this.props.logActivity(this.props.activities[key])
-  }
 
 
   renderActivities() {
@@ -31,9 +28,7 @@ class ActivityList extends React.Component {
     for(let key in this.props.activities) {
       let activityType = 'activity-' + (this.props.activities[key].value > 0 ? 'good' : 'bad')
       activities.push(
-        <a href='#' className={'activity-list-item ' + activityType}  key={key} onClick={ (e) => this.handleClick(e, key) }>
-            {this.props.activities[key].name}
-        </a>
+        <Activity activity={this.props.activities[key]} key={key}/>
       )
   }
   return activities

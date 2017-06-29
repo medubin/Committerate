@@ -28821,6 +28821,10 @@
 	
 	var _activity_actions = __webpack_require__(265);
 	
+	var _activity = __webpack_require__(361);
+	
+	var _activity2 = _interopRequireDefault(_activity);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28840,12 +28844,11 @@
 	  return {
 	    fetchActivities: function fetchActivities(activities) {
 	      return dispatch((0, _activity_actions.fetchActivities)(activities));
-	    },
-	    logActivity: function logActivity(activity) {
-	      return dispatch((0, _activity_actions.logActivity)(activity));
 	    }
 	  };
 	};
+	
+	//TODO the name of this doesn't match the file name :(
 	
 	var ActivityList = function (_React$Component) {
 	  _inherits(ActivityList, _React$Component);
@@ -28861,31 +28864,12 @@
 	  }
 	
 	  _createClass(ActivityList, [{
-	    key: 'handleClick',
-	    value: function handleClick(e, key) {
-	      e.preventDefault();
-	      this.props.logActivity(this.props.activities[key]);
-	    }
-	  }, {
 	    key: 'renderActivities',
 	    value: function renderActivities() {
-	      var _this2 = this;
-	
 	      var activities = [];
-	
-	      var _loop = function _loop(key) {
-	        var activityType = 'activity-' + (_this2.props.activities[key].value > 0 ? 'good' : 'bad');
-	        activities.push(_react2.default.createElement(
-	          'a',
-	          { href: '#', className: 'activity-list-item ' + activityType, key: key, onClick: function onClick(e) {
-	              return _this2.handleClick(e, key);
-	            } },
-	          _this2.props.activities[key].name
-	        ));
-	      };
-	
 	      for (var key in this.props.activities) {
-	        _loop(key);
+	        var activityType = 'activity-' + (this.props.activities[key].value > 0 ? 'good' : 'bad');
+	        activities.push(_react2.default.createElement(_activity2.default, { activity: this.props.activities[key], key: key }));
 	      }
 	      return activities;
 	    }
@@ -31841,6 +31825,88 @@
 	    url: 'api/activity_stats/'
 	  });
 	};
+
+/***/ }),
+/* 361 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(198);
+	
+	var _reactRedux = __webpack_require__(160);
+	
+	var _activity_actions = __webpack_require__(265);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+	
+	var mapStateToProps = function mapStateToProps(_ref) {
+	  _objectDestructuringEmpty(_ref);
+	
+	  return {};
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    logActivity: function logActivity(activity) {
+	      return dispatch((0, _activity_actions.logActivity)(activity));
+	    }
+	  };
+	};
+	
+	var Activity = function (_React$Component) {
+	  _inherits(Activity, _React$Component);
+	
+	  function Activity(props) {
+	    _classCallCheck(this, Activity);
+	
+	    return _possibleConstructorReturn(this, (Activity.__proto__ || Object.getPrototypeOf(Activity)).call(this, props));
+	  }
+	
+	  _createClass(Activity, [{
+	    key: 'handleClick',
+	    value: function handleClick(e) {
+	      e.preventDefault();
+	      this.props.logActivity(this.props.activity);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      var activityType = 'activity-' + (this.props.activity.value > 0 ? 'good' : 'bad');
+	      return _react2.default.createElement(
+	        'a',
+	        { href: '#', className: 'activity-list-item ' + activityType, onClick: function onClick(e) {
+	            return _this2.handleClick(e);
+	          } },
+	        this.props.activity.name
+	      );
+	    }
+	  }]);
+	
+	  return Activity;
+	}(_react2.default.Component);
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Activity);
 
 /***/ })
 /******/ ]);
