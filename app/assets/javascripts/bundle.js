@@ -28853,14 +28853,11 @@
 	  function ActivityList(props) {
 	    _classCallCheck(this, ActivityList);
 	
-	    var _this
-	    // this.state = {
-	    //   hover: -1
-	    // }
-	    = _possibleConstructorReturn(this, (ActivityList.__proto__ || Object.getPrototypeOf(ActivityList)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (ActivityList.__proto__ || Object.getPrototypeOf(ActivityList)).call(this, props));
 	
 	    _this.props.fetchActivities();
-	    _this.renderActivities = _this.renderActivities.bind(_this);return _this;
+	    _this.renderActivities = _this.renderActivities.bind(_this);
+	    return _this;
 	  }
 	
 	  _createClass(ActivityList, [{
@@ -28869,11 +28866,6 @@
 	      e.preventDefault();
 	      this.props.logActivity(this.props.activities[key]);
 	    }
-	
-	    // handleHover(e, key) {
-	    //
-	    // }
-	
 	  }, {
 	    key: 'renderActivities',
 	    value: function renderActivities() {

@@ -17,9 +17,6 @@ class ActivityList extends React.Component {
     super(props);
     this.props.fetchActivities()
     this.renderActivities = this.renderActivities.bind(this)
-    // this.state = {
-    //   hover: -1
-    // }
   }
 
 
@@ -28,9 +25,6 @@ class ActivityList extends React.Component {
     this.props.logActivity(this.props.activities[key])
   }
 
-  // handleHover(e, key) {
-  //
-  // }
 
   renderActivities() {
     let activities = []

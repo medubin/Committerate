@@ -16,6 +16,10 @@ class User < ApplicationRecord
     self.activity_logs.sum(:value)
   end
 
+  def get_daily_score
+    self.activity_logs.group("DATE_TRUNC('day', activity_logs.created_at)").sum(:value)
+  end
+
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
     return nil unless user && user.valid_password?(password)
