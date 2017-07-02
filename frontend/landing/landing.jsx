@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router,  hashHistory } from 'react-router'
+import { Router,  hashHistory, withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import {fetchActivityStats} from '../activity/actions/activity_stats_actions'
 
@@ -18,10 +18,10 @@ class Landing extends React.Component {
   }
 
     render() {
-      return <div className="landingPage">
-        <button className='activity-button'>
+      return <div className="landing-page">
+        <h1 className='landing-page-score'>
             {this.props.score}
-        </button>
+        </h1>
       </div>
     }
 }
@@ -29,4 +29,4 @@ class Landing extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Landing);
+)(withRouter(Landing));

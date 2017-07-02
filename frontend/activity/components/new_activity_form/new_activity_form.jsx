@@ -28,6 +28,7 @@ class NewActivityForm extends React.Component {
     e.preventDefault();
     const activity = this.state;
     this.props.createActivity({ activity })
+    this.props.router.push("/activity/");
 
   }
 
@@ -84,4 +85,4 @@ class NewActivityForm extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(NewActivityForm);
+)(withRouter(NewActivityForm));

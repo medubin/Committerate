@@ -5,20 +5,52 @@
 
 
   .activity-list-item {
-    display: block;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    height: 200px;
+    width: 250px;
+    margin: 10px;
     padding: 20px;
-    width: 150px;
-    height: 75px;
-    border: solid 3px;
-    margin-top: 10px;
-    overflow: scroll;
+    border-radius: 2px;
+    background: white;
+    box-shadow: 0 2px 1px rgba(170, 170, 170, 0.25);
+    box-sizing: border-box;
+    font-size: 14px;
+    overflow: hidden;
+
+
+    .activity-list-item-name {
+      display: block;
+      max-width: 80%;
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    .activity-list-item-description {
+      font-size: 11px;
+      line-height: 16px;
+      // text-transform: uppercase;
+    }
+
+    .activity-list-item-value {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 16px;
+    }
+
   }
   .activity-good {
-    border-color: green;
+    .activity-list-item-value {
+      color: green;
+    }
   }
 
   .activity-bad {
-    border-color: red;
+    .activity-list-item-value {
+      color: red;
+    }
   }
 
   .activity-bad:hover {
@@ -29,41 +61,64 @@
     background-color: lighten(green, 50);
   }
 
-  // .hightlight {
-  //   background-color:
-  // }
-  //
-  // .activity-list-item:after {
-  //   background-color: blue !important;
-  //     content: "";
-  //     background: #f1c40f;
-  //     display: block;
-  //     position: absolute;
-  //     padding-top: 300%;
-  //     padding-left: 350%;
-  //     margin-left: -20px !important;
-  //     margin-top: -120%;
-  //     opacity: 0;
-  //     transition: all 0.8s
-  // }
-
-  // .activity-list-item:active:after {
-  //   background-color: blue !important;
-  //     padding: 0;
-  //     margin: 0;
-  //     opacity: 1;
-  //     transition: 0s
-  // }
-
   .activity-list-item:active {
     background-color: blue;
 
   }
 
+  .activity-list-item-progress {
+   display: block;
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   width: 90%;
+   padding: 20px;
+   border-top: 1px solid #eee;
+   font-size: 13px;
+   .activity-list-item-progress-bg {
+      width: 40%;
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+      width: 100px;
+      height: 4px;
+      border-radius: 2px;
+      overflow: hidden;
+      background: #eee;
+      .activity-list-item-progress-fg {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        height: 100%;
+        left: 0;
+        margin: 0;
+        background: #8DC63F;
+      }
+   }
 
+   .activity-list-item-progress-labels {
+     position: absolute;
+     right: 20px;
+     top: 0;
+     line-height: 40px;
 
+     .activity-list-item-progress-label {
+       line-height: 21px;
+       font-size: 13px;
+       font-weight: 400;
+       vertical-align: middle;
+       margin: 0 10px;
+       color: #8DC63F;
+     }
 
-
+     .activity-list-item-progress-completes {
+       line-height: 21px;
+       font-size: 13px;
+       vertical-align: middle;
+     }
+   }
+ }
 
 
 

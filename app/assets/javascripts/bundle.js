@@ -19801,11 +19801,11 @@
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	var _session_form = __webpack_require__(261);
+	var _session_form = __webpack_require__(263);
 	
 	var _session_form2 = _interopRequireDefault(_session_form);
 	
-	var _landing = __webpack_require__(263);
+	var _landing = __webpack_require__(265);
 	
 	var _landing2 = _interopRequireDefault(_landing);
 	
@@ -27969,7 +27969,7 @@
 	
 	var _session_actions = __webpack_require__(259);
 	
-	var _activity_stats_actions = __webpack_require__(264);
+	var _activity_stats_actions = __webpack_require__(261);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -28244,6 +28244,56 @@
 /* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.receiveActivityStats = exports.fetchActivityStats = exports.RECEIVE_ACTIVITY_STATS = undefined;
+	
+	var _activity_stats_api_util = __webpack_require__(262);
+	
+	var APIUtil = _interopRequireWildcard(_activity_stats_api_util);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	var RECEIVE_ACTIVITY_STATS = exports.RECEIVE_ACTIVITY_STATS = "RECEIVE_ACTIVITY_STATS";
+	
+	var fetchActivityStats = exports.fetchActivityStats = function fetchActivityStats() {
+	  return function (dispatch) {
+	    APIUtil.fetchActivityStats().then(function (activityStats) {
+	      return dispatch(receiveActivityStats(activityStats));
+	    });
+	  };
+	};
+	
+	var receiveActivityStats = exports.receiveActivityStats = function receiveActivityStats(activityStats) {
+	  return {
+	    type: RECEIVE_ACTIVITY_STATS,
+	    activityStats: activityStats
+	  };
+	};
+
+/***/ }),
+/* 262 */
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var fetchActivityStats = exports.fetchActivityStats = function fetchActivityStats() {
+	  return $.ajax({
+	    method: 'GET',
+	    url: 'api/activity_stats/'
+	  });
+	};
+
+/***/ }),
+/* 263 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
@@ -28258,7 +28308,7 @@
 	
 	var _reactRouter = __webpack_require__(198);
 	
-	var _field = __webpack_require__(262);
+	var _field = __webpack_require__(264);
 	
 	var _field2 = _interopRequireDefault(_field);
 	
@@ -28458,7 +28508,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)((0, _reactRouter.withRouter)(SessionForm));
 
 /***/ }),
-/* 262 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28506,7 +28556,7 @@
 	exports.default = Field;
 
 /***/ }),
-/* 263 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28525,7 +28575,7 @@
 	
 	var _reactRedux = __webpack_require__(160);
 	
-	var _activity_stats_actions = __webpack_require__(264);
+	var _activity_stats_actions = __webpack_require__(261);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -28565,10 +28615,10 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'landingPage' },
+	        { className: 'landing-page' },
 	        _react2.default.createElement(
-	          'button',
-	          { className: 'activity-button' },
+	          'h1',
+	          { className: 'landing-page-score' },
 	          this.props.score
 	        )
 	      );
@@ -28578,57 +28628,7 @@
 	  return Landing;
 	}(_react2.default.Component);
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Landing);
-
-/***/ }),
-/* 264 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.receiveActivityStats = exports.fetchActivityStats = exports.RECEIVE_ACTIVITY_STATS = undefined;
-	
-	var _activity_stats_api_util = __webpack_require__(265);
-	
-	var APIUtil = _interopRequireWildcard(_activity_stats_api_util);
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	var RECEIVE_ACTIVITY_STATS = exports.RECEIVE_ACTIVITY_STATS = "RECEIVE_ACTIVITY_STATS";
-	
-	var fetchActivityStats = exports.fetchActivityStats = function fetchActivityStats() {
-	  return function (dispatch) {
-	    APIUtil.fetchActivityStats().then(function (activityStats) {
-	      return dispatch(receiveActivityStats(activityStats));
-	    });
-	  };
-	};
-	
-	var receiveActivityStats = exports.receiveActivityStats = function receiveActivityStats(activityStats) {
-	  return {
-	    type: RECEIVE_ACTIVITY_STATS,
-	    activityStats: activityStats
-	  };
-	};
-
-/***/ }),
-/* 265 */
-/***/ (function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var fetchActivityStats = exports.fetchActivityStats = function fetchActivityStats() {
-	  return $.ajax({
-	    method: 'GET',
-	    url: 'api/activity_stats/'
-	  });
-	};
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)((0, _reactRouter.withRouter)(Landing));
 
 /***/ }),
 /* 266 */
@@ -28703,6 +28703,7 @@
 	      e.preventDefault();
 	      var activity = this.state;
 	      this.props.createActivity({ activity: activity });
+	      this.props.router.push("/activity/");
 	    }
 	  }, {
 	    key: 'update',
@@ -28762,7 +28763,7 @@
 	  return NewActivityForm;
 	}(_react2.default.Component);
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(NewActivityForm);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)((0, _reactRouter.withRouter)(NewActivityForm));
 
 /***/ }),
 /* 267 */
@@ -29021,12 +29022,55 @@
 	
 	      var activityType = 'activity-' + (this.props.activity.value > 0 ? 'good' : 'bad');
 	
+	      var name = this.props.activity.name;
+	      name = name.length < 30 ? name : name.substr(0, 27) + '...';
+	
+	      var description = this.props.activity.description;
+	      description = description.length < 100 ? description : description.substr(0, 97) + '...';
+	
 	      return _react2.default.createElement(
 	        'a',
 	        { href: '#', className: 'activity-list-item ' + activityType, onClick: function onClick(e) {
 	            return _this2.handleClick(e);
 	          } },
-	        this.props.activity.name
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'activity-list-item-name' },
+	          name
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'activity-list-item-description' },
+	          description
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'activity-list-item-value' },
+	          this.props.activity.value
+	        ),
+	        _react2.default.createElement(
+	          'span',
+	          { className: 'activity-list-item-progress' },
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'activity-list-item-progress-bg' },
+	            _react2.default.createElement('span', { className: 'activity-list-item-progress-fg', style: { width: '88%' } })
+	          ),
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'activity-list-item-progress-labels' },
+	            _react2.default.createElement(
+	              'span',
+	              { className: 'activity-list-item-progress-label' },
+	              '88%'
+	            ),
+	            _react2.default.createElement(
+	              'span',
+	              { className: 'activity-list-item-progress-completes' },
+	              '490/500'
+	            )
+	          )
+	        )
 	      );
 	    }
 	  }]);
@@ -31864,7 +31908,7 @@
 	  value: true
 	});
 	
-	var _activity_stats_actions = __webpack_require__(264);
+	var _activity_stats_actions = __webpack_require__(261);
 	
 	var _activity_actions = __webpack_require__(267);
 	

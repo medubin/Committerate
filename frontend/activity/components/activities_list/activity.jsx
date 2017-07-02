@@ -23,15 +23,46 @@ class Activity extends React.Component {
   render() {
     let activityType = 'activity-' + (this.props.activity.value > 0 ? 'good' : 'bad')
 
+    let name = this.props.activity.name
+    name = name.length < 30 ? name : name.substr(0, 27) + '...'
+
+    let description = this.props.activity.description
+    description = description.length < 100 ? description : description.substr(0, 97) + '...'
+
     return (
       <a href='#' className={'activity-list-item ' + activityType} onClick={ (e) => this.handleClick(e) }>
-          {this.props.activity.name}
+        <div className='activity-list-item-name'>
+          {name}
+        </div>
+
+        <div className='activity-list-item-description'>
+          {description}
+        </div>
+
+        <div className='activity-list-item-value'>
+          {this.props.activity.value}
+        </div>
+
+
+
+        <span className='activity-list-item-progress'>
+          <span className='activity-list-item-progress-bg'>
+            <span className='activity-list-item-progress-fg' style={{width: '88%'}}>
+            </span>
+          </span>
+
+          <span className='activity-list-item-progress-labels' >
+            <span className='activity-list-item-progress-label' >
+              88%
+            </span>
+            <span className='activity-list-item-progress-completes' >
+              490/500
+            </span>
+          </span>
+        </span>
       </a>
     )
   }
-
-
-
 }
 
 
