@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import {logActivity  } from '../../actions/activity_actions'
+import ActivityProgress from './activity_progress'
 
 const mapStateToProps = ({}) => ({
 });
@@ -43,25 +44,9 @@ class Activity extends React.Component {
           {this.props.activity.value}
         </div>
 
-
-
-        <span className='activity-list-item-progress'>
-          <span className='activity-list-item-progress-bg'>
-            <span className='activity-list-item-progress-fg' style={{width: '88%'}}>
-            </span>
-          </span>
-
-          <span className='activity-list-item-progress-labels' >
-            <span className='activity-list-item-progress-label' >
-              88%
-            </span>
-            <span className='activity-list-item-progress-completes' >
-              490/500
-            </span>
-          </span>
-        </span>
       </a>
     )
+    //<ActivityProgress />
   }
 }
 

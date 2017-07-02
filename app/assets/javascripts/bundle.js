@@ -28976,6 +28976,10 @@
 	
 	var _activity_actions = __webpack_require__(267);
 	
+	var _activity_progress = __webpack_require__(362);
+	
+	var _activity_progress2 = _interopRequireDefault(_activity_progress);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29047,31 +29051,9 @@
 	          'div',
 	          { className: 'activity-list-item-value' },
 	          this.props.activity.value
-	        ),
-	        _react2.default.createElement(
-	          'span',
-	          { className: 'activity-list-item-progress' },
-	          _react2.default.createElement(
-	            'span',
-	            { className: 'activity-list-item-progress-bg' },
-	            _react2.default.createElement('span', { className: 'activity-list-item-progress-fg', style: { width: '88%' } })
-	          ),
-	          _react2.default.createElement(
-	            'span',
-	            { className: 'activity-list-item-progress-labels' },
-	            _react2.default.createElement(
-	              'span',
-	              { className: 'activity-list-item-progress-label' },
-	              '88%'
-	            ),
-	            _react2.default.createElement(
-	              'span',
-	              { className: 'activity-list-item-progress-completes' },
-	              '490/500'
-	            )
-	          )
 	        )
 	      );
+	      //<ActivityProgress />
 	    }
 	  }]);
 	
@@ -31971,6 +31953,58 @@
 	thunk.withExtraArgument = createThunkMiddleware;
 	
 	exports['default'] = thunk;
+
+/***/ }),
+/* 362 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(198);
+	
+	var _reactRedux = __webpack_require__(160);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+	
+	var ActivityProgress = function ActivityProgress(_ref) {
+	  _objectDestructuringEmpty(_ref);
+	
+	  return _react2.default.createElement(
+	    'span',
+	    { className: 'activity-list-item-progress' },
+	    _react2.default.createElement(
+	      'span',
+	      { className: 'activity-list-item-progress-bg' },
+	      _react2.default.createElement('span', { className: 'activity-list-item-progress-fg', style: { width: '88%' } })
+	    ),
+	    _react2.default.createElement(
+	      'span',
+	      { className: 'activity-list-item-progress-labels' },
+	      _react2.default.createElement(
+	        'span',
+	        { className: 'activity-list-item-progress-label' },
+	        '88%'
+	      ),
+	      _react2.default.createElement(
+	        'span',
+	        { className: 'activity-list-item-progress-completes' },
+	        '490/500'
+	      )
+	    )
+	  );
+	};
+	
+	exports.default = ActivityProgress;
 
 /***/ })
 /******/ ]);
