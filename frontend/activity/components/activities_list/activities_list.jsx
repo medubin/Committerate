@@ -20,9 +20,6 @@ class ActivityList extends React.Component {
     this.renderActivities = this.renderActivities.bind(this)
   }
 
-
-
-
   renderActivities() {
     let activities = []
     for(let key in this.props.activities) {

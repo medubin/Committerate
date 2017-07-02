@@ -2,20 +2,23 @@ import React from 'react';
 import { Link, withRouter, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { logout } from '../../session/actions/session_actions';
+import {fetchActivityStats} from '../../activity/actions/activity_stats_actions'
 
-const mapStateToProps = ({ session }) => ({
-  currentUser: session.currentUser
+const mapStateToProps = ({ session, activityStats }) => ({
+  currentUser: session.currentUser,
+  score: activityStats.score
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout())
+  logout: () => dispatch(logout()),
+  fetchActivityStats: activityStats => dispatch(fetchActivityStats(activityStats))
 });
 
 
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
-
+    this.props.fetchActivityStats()
     this.logout = this.logout.bind(this);
   }
 
@@ -34,7 +37,7 @@ class Navbar extends React.Component {
         <nav className='navbar'>
           <a className='navbar-logo'>Commit</a>
             <ul>
-              <li><Link to="/">Home</Link></li>
+              <li><Link to="/">{this.props.score}</Link></li>
               <li><Link to="/activity/">Log Activity</Link></li>
               <li><Link to="/activity/new/">New Activity</Link></li>
             </ul>
