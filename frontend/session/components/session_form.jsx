@@ -97,43 +97,36 @@ class SessionForm extends React.Component {
 		let signUpOptions;
 		if (this.props.formType === 'signup') {
 			signUpOptions =
-      <p>
-				<input type='password'
-				value={this.state.passwordCheck}
-				onChange={this.update('passwordCheck')}
-				className="validate form-input"
-				placeholder="Retype Password" />
+      <p className='form-item'>
+        <label className='form-item-label' htmlFor="password-validate">Password</label>
+        <input className='form-item-input' type="password" name="Password Validation" onChange={this.update('passwordCheck')} />
+        <span className='form-item-description'>Retype password</span>
       </p>
 		}
 
-
 		return (
-			<div id="form-main">
-        <div id="form-form">
+			<div className="form-main">
+        <div className="form-form">
   				<form onSubmit={this.handleSubmit} >
   					Welcome to Commiter!
   					<br/>
   					Please {this.props.formType} or {this.navLink()}
   					{this.renderErrors()}
 
-  					<p>
-  						<input type='text'
-  						value={this.state.username}
-  						onChange={this.update('username')}
-  						className="validate form-input"
-              placeholder="Username" />
-  					</p>
+            <p className='form-item'>
+              <label className='form-item-label' htmlFor="username">Username</label>
+              <input className='form-item-input' type="text" name="Username" onChange={this.update('username')} />
+              <span className='form-item-description'>Username</span>
+            </p>
 
-  					<p>
-  						<input type='password'
-  						value={this.state.password}
-  						onChange={this.update('password')}
-  						className="validate form-input"
-  						placeholder="Password" />
-  					</p>
+            <p className='form-item'>
+              <label className='form-item-label' htmlFor="password">Password</label>
+              <input className='form-item-input' type="password" name="Password" onChange={this.update('password')} />
+              <span className='form-item-description'>Password</span>
+            </p>
 
   					{ signUpOptions }
-  					<input type="submit" value="Submit" className="ease" id="button-blue" />
+  					<input type="submit" value="Submit" className="submit-button" />
 
   				</form>
         </div>

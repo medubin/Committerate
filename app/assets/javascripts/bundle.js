@@ -19805,15 +19805,15 @@
 	
 	var _session_form2 = _interopRequireDefault(_session_form);
 	
-	var _landing = __webpack_require__(265);
+	var _landing = __webpack_require__(264);
 	
 	var _landing2 = _interopRequireDefault(_landing);
 	
-	var _new_activity_form = __webpack_require__(266);
+	var _new_activity_form = __webpack_require__(265);
 	
 	var _new_activity_form2 = _interopRequireDefault(_new_activity_form);
 	
-	var _activities_list = __webpack_require__(269);
+	var _activities_list = __webpack_require__(268);
 	
 	var _activities_list2 = _interopRequireDefault(_activities_list);
 	
@@ -28308,7 +28308,7 @@
 	
 	var _reactRouter = __webpack_require__(198);
 	
-	var _field = __webpack_require__(264);
+	var _field = __webpack_require__(362);
 	
 	var _field2 = _interopRequireDefault(_field);
 	
@@ -28451,21 +28451,27 @@
 				if (this.props.formType === 'signup') {
 					signUpOptions = _react2.default.createElement(
 						'p',
-						null,
-						_react2.default.createElement('input', { type: 'password',
-							value: this.state.passwordCheck,
-							onChange: this.update('passwordCheck'),
-							className: 'validate form-input',
-							placeholder: 'Retype Password' })
+						{ className: 'form-item' },
+						_react2.default.createElement(
+							'label',
+							{ className: 'form-item-label', htmlFor: 'password-validate' },
+							'Password'
+						),
+						_react2.default.createElement('input', { className: 'form-item-input', type: 'password', name: 'Password Validation', onChange: this.update('passwordCheck') }),
+						_react2.default.createElement(
+							'span',
+							{ className: 'form-item-description' },
+							'Retype password'
+						)
 					);
 				}
 	
 				return _react2.default.createElement(
 					'div',
-					{ id: 'form-main' },
+					{ className: 'form-main' },
 					_react2.default.createElement(
 						'div',
-						{ id: 'form-form' },
+						{ className: 'form-form' },
 						_react2.default.createElement(
 							'form',
 							{ onSubmit: this.handleSubmit },
@@ -28478,24 +28484,36 @@
 							this.renderErrors(),
 							_react2.default.createElement(
 								'p',
-								null,
-								_react2.default.createElement('input', { type: 'text',
-									value: this.state.username,
-									onChange: this.update('username'),
-									className: 'validate form-input',
-									placeholder: 'Username' })
+								{ className: 'form-item' },
+								_react2.default.createElement(
+									'label',
+									{ className: 'form-item-label', htmlFor: 'username' },
+									'Username'
+								),
+								_react2.default.createElement('input', { className: 'form-item-input', type: 'text', name: 'Username', onChange: this.update('username') }),
+								_react2.default.createElement(
+									'span',
+									{ className: 'form-item-description' },
+									'Username'
+								)
 							),
 							_react2.default.createElement(
 								'p',
-								null,
-								_react2.default.createElement('input', { type: 'password',
-									value: this.state.password,
-									onChange: this.update('password'),
-									className: 'validate form-input',
-									placeholder: 'Password' })
+								{ className: 'form-item' },
+								_react2.default.createElement(
+									'label',
+									{ className: 'form-item-label', htmlFor: 'password' },
+									'Password'
+								),
+								_react2.default.createElement('input', { className: 'form-item-input', type: 'password', name: 'Password', onChange: this.update('password') }),
+								_react2.default.createElement(
+									'span',
+									{ className: 'form-item-description' },
+									'Password'
+								)
 							),
 							signUpOptions,
-							_react2.default.createElement('input', { type: 'submit', value: 'Submit', className: 'ease', id: 'button-blue' })
+							_react2.default.createElement('input', { type: 'submit', value: 'Submit', className: 'submit-button' })
 						)
 					)
 				);
@@ -28509,54 +28527,6 @@
 
 /***/ }),
 /* 264 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Field = function (_React$Component) {
-	  _inherits(Field, _React$Component);
-	
-	  function Field(props) {
-	    _classCallCheck(this, Field);
-	
-	    return _possibleConstructorReturn(this, (Field.__proto__ || Object.getPrototypeOf(Field)).call(this, props));
-	  }
-	
-	  _createClass(Field, [{
-	    key: "render",
-	    value: function render() {
-	      return _react2.default.createElement("input", { type: this.props.type,
-	        value: this.props.value,
-	        onChange: this.props.update(this.props.field),
-	        className: "validate" });
-	    }
-	  }]);
-	
-	  return Field;
-	}(_react2.default.Component);
-	
-	exports.default = Field;
-
-/***/ }),
-/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28631,7 +28601,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)((0, _reactRouter.withRouter)(Landing));
 
 /***/ }),
-/* 266 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28650,7 +28620,7 @@
 	
 	var _reactRedux = __webpack_require__(160);
 	
-	var _activity_actions = __webpack_require__(267);
+	var _activity_actions = __webpack_require__(266);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -28719,41 +28689,59 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { id: 'form-main' },
+	        { className: 'form-main' },
 	        _react2.default.createElement(
 	          'div',
-	          { id: 'form-form' },
+	          { className: 'form-form' },
 	          _react2.default.createElement(
 	            'form',
 	            { onSubmit: this.handleSubmit },
 	            _react2.default.createElement(
 	              'p',
-	              null,
-	              _react2.default.createElement('input', { type: 'text',
-	                value: this.state.name,
-	                onChange: this.update('name'),
-	                className: 'validate form-input',
-	                placeholder: 'Name' })
+	              { className: 'form-item' },
+	              _react2.default.createElement(
+	                'label',
+	                { className: 'form-item-label', htmlFor: 'username' },
+	                'Name'
+	              ),
+	              _react2.default.createElement('input', { className: 'form-item-input', type: 'text', name: 'Name', onChange: this.update('name') }),
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'form-item-description' },
+	                'Name'
+	              )
 	            ),
 	            _react2.default.createElement(
 	              'p',
-	              null,
-	              _react2.default.createElement('input', { type: 'text',
-	                value: this.state.description,
-	                onChange: this.update('description'),
-	                className: 'validate form-input',
-	                placeholder: 'Description' })
+	              { className: 'form-item' },
+	              _react2.default.createElement(
+	                'label',
+	                { className: 'form-item-label', htmlFor: 'username' },
+	                'Description'
+	              ),
+	              _react2.default.createElement('input', { className: 'form-item-input', type: 'text', name: 'Name', onChange: this.update('description') }),
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'form-item-description' },
+	                'Description'
+	              )
 	            ),
 	            _react2.default.createElement(
 	              'p',
-	              null,
-	              _react2.default.createElement('input', { type: 'text',
-	                value: this.state.value,
-	                onChange: this.update('value'),
-	                className: 'validate form-input',
-	                placeholder: 'Value' })
+	              { className: 'form-item' },
+	              _react2.default.createElement(
+	                'label',
+	                { className: 'form-item-label', htmlFor: 'username' },
+	                'Value'
+	              ),
+	              _react2.default.createElement('input', { className: 'form-item-input', type: 'text', name: 'value', onChange: this.update('value') }),
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'form-item-description' },
+	                'Value'
+	              )
 	            ),
-	            _react2.default.createElement('input', { type: 'submit', value: 'Submit', className: 'ease', id: 'button-blue' })
+	            _react2.default.createElement('input', { type: 'submit', value: 'Submit', className: 'submit-button' })
 	          )
 	        )
 	      );
@@ -28766,7 +28754,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)((0, _reactRouter.withRouter)(NewActivityForm));
 
 /***/ }),
-/* 267 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28776,7 +28764,7 @@
 	});
 	exports.receiveActivityLog = exports.receiveErrors = exports.receiveActivities = exports.fetchActivities = exports.logActivity = exports.createActivity = exports.RECEIVE_ACTIVITY_LOG = exports.RECEIVE_ERRORS = exports.RECEIVE_ACTIVITIES = undefined;
 	
-	var _activity_api_util = __webpack_require__(268);
+	var _activity_api_util = __webpack_require__(267);
 	
 	var APIUtil = _interopRequireWildcard(_activity_api_util);
 	
@@ -28831,7 +28819,7 @@
 	};
 
 /***/ }),
-/* 268 */
+/* 267 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -28865,7 +28853,7 @@
 	//todo nest namespaces in routes and fix these!!!
 
 /***/ }),
-/* 269 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28884,9 +28872,9 @@
 	
 	var _reactRedux = __webpack_require__(160);
 	
-	var _activity_actions = __webpack_require__(267);
+	var _activity_actions = __webpack_require__(266);
 	
-	var _activity = __webpack_require__(270);
+	var _activity = __webpack_require__(269);
 	
 	var _activity2 = _interopRequireDefault(_activity);
 	
@@ -28952,10 +28940,10 @@
 	  return ActivityList;
 	}(_react2.default.Component);
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ActivityList);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)((0, _reactRouter.withRouter)(ActivityList));
 
 /***/ }),
-/* 270 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28974,9 +28962,9 @@
 	
 	var _reactRedux = __webpack_require__(160);
 	
-	var _activity_actions = __webpack_require__(267);
+	var _activity_actions = __webpack_require__(266);
 	
-	var _activity_progress = __webpack_require__(362);
+	var _activity_progress = __webpack_require__(270);
 	
 	var _activity_progress2 = _interopRequireDefault(_activity_progress);
 	
@@ -29061,6 +29049,58 @@
 	}(_react2.default.Component);
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Activity);
+
+/***/ }),
+/* 270 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(198);
+	
+	var _reactRedux = __webpack_require__(160);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+	
+	var ActivityProgress = function ActivityProgress(_ref) {
+	  _objectDestructuringEmpty(_ref);
+	
+	  return _react2.default.createElement(
+	    'span',
+	    { className: 'activity-list-item-progress' },
+	    _react2.default.createElement(
+	      'span',
+	      { className: 'activity-list-item-progress-bg' },
+	      _react2.default.createElement('span', { className: 'activity-list-item-progress-fg', style: { width: '88%' } })
+	    ),
+	    _react2.default.createElement(
+	      'span',
+	      { className: 'activity-list-item-progress-labels' },
+	      _react2.default.createElement(
+	        'span',
+	        { className: 'activity-list-item-progress-label' },
+	        '88%'
+	      ),
+	      _react2.default.createElement(
+	        'span',
+	        { className: 'activity-list-item-progress-completes' },
+	        '490/500'
+	      )
+	    )
+	  );
+	};
+	
+	exports.default = ActivityProgress;
 
 /***/ }),
 /* 271 */
@@ -31847,7 +31887,7 @@
 	  value: true
 	});
 	
-	var _activity_actions = __webpack_require__(267);
+	var _activity_actions = __webpack_require__(266);
 	
 	var _merge = __webpack_require__(274);
 	
@@ -31892,7 +31932,7 @@
 	
 	var _activity_stats_actions = __webpack_require__(261);
 	
-	var _activity_actions = __webpack_require__(267);
+	var _activity_actions = __webpack_require__(266);
 	
 	var _merge = __webpack_require__(274);
 	
@@ -31958,53 +31998,49 @@
 /* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(198);
-	
-	var _reactRedux = __webpack_require__(160);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var ActivityProgress = function ActivityProgress(_ref) {
-	  _objectDestructuringEmpty(_ref);
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	  return _react2.default.createElement(
-	    'span',
-	    { className: 'activity-list-item-progress' },
-	    _react2.default.createElement(
-	      'span',
-	      { className: 'activity-list-item-progress-bg' },
-	      _react2.default.createElement('span', { className: 'activity-list-item-progress-fg', style: { width: '88%' } })
-	    ),
-	    _react2.default.createElement(
-	      'span',
-	      { className: 'activity-list-item-progress-labels' },
-	      _react2.default.createElement(
-	        'span',
-	        { className: 'activity-list-item-progress-label' },
-	        '88%'
-	      ),
-	      _react2.default.createElement(
-	        'span',
-	        { className: 'activity-list-item-progress-completes' },
-	        '490/500'
-	      )
-	    )
-	  );
-	};
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	exports.default = ActivityProgress;
+	var Field = function (_React$Component) {
+	  _inherits(Field, _React$Component);
+	
+	  function Field(props) {
+	    _classCallCheck(this, Field);
+	
+	    return _possibleConstructorReturn(this, (Field.__proto__ || Object.getPrototypeOf(Field)).call(this, props));
+	  }
+	
+	  _createClass(Field, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement("input", { type: this.props.type,
+	        value: this.props.value,
+	        onChange: this.props.update(this.props.field),
+	        className: "validate" });
+	    }
+	  }]);
+	
+	  return Field;
+	}(_react2.default.Component);
+	
+	exports.default = Field;
 
 /***/ })
 /******/ ]);

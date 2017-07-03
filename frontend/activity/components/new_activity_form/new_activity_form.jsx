@@ -41,44 +41,34 @@ class NewActivityForm extends React.Component {
 
   render() {
     return (
-      <div id="form-main">
-        <div id="form-form">
+      <div className="form-main">
+        <div className="form-form">
           <form onSubmit={this.handleSubmit} >
-            <p>
-              <input type="text"
-                value={this.state.name}
-    						onChange={this.update('name')}
-    						className="validate form-input"
-                placeholder="Name" />
+
+            <p className='form-item'>
+              <label className='form-item-label' htmlFor="username">Name</label>
+              <input className='form-item-input' type="text" name="Name" onChange={this.update('name')} />
+              <span className='form-item-description'>Name</span>
             </p>
 
-            <p>
-              <input type="text"
-                value={this.state.description}
-    						onChange={this.update('description')}
-    						className="validate form-input"
-                placeholder="Description" />
+            <p className='form-item'>
+              <label className='form-item-label' htmlFor="username">Description</label>
+              <input className='form-item-input' type="text" name="Name" onChange={this.update('description')} />
+              <span className='form-item-description'>Description</span>
             </p>
 
-            <p>
-              <input type="text"
-                value={this.state.value}
-                onChange={this.update('value')}
-                className="validate form-input"
-                placeholder="Value" />
+            <p className='form-item'>
+              <label className='form-item-label' htmlFor="username">Value</label>
+              <input className='form-item-input' type="text" name="value" onChange={this.update('value')} />
+              <span className='form-item-description'>Value</span>
             </p>
-            <input type="submit" value="Submit" className="ease" id="button-blue" />
+            <input type="submit" value="Submit" className="submit-button" />
 
           </form>
-
-
         </div>
       </div>
-
-
     )
   }
-
 
 }
 

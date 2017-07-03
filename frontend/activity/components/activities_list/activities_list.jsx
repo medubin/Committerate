@@ -43,4 +43,4 @@ class ActivityList extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ActivityList);
+)(withRouter(ActivityList));
