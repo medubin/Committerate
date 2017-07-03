@@ -28874,9 +28874,15 @@
 	
 	var _activity_actions = __webpack_require__(266);
 	
+	var _activity_sort_actions = __webpack_require__(363);
+	
 	var _activity = __webpack_require__(269);
 	
 	var _activity2 = _interopRequireDefault(_activity);
+	
+	var _activities_sort = __webpack_require__(400);
+	
+	var _activities_sort2 = _interopRequireDefault(_activities_sort);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -28897,26 +28903,28 @@
 	  return {
 	    fetchActivities: function fetchActivities(activities) {
 	      return dispatch((0, _activity_actions.fetchActivities)(activities));
+	    },
+	    sortActivities: function sortActivities(activites, sortKey, order) {
+	      return dispatch((0, _activity_sort_actions.sortActivities)(activites, sortKey, order));
 	    }
+	
 	  };
 	};
 	
-	//TODO the name of this doesn't match the file name :(
+	var ActivitiesList = function (_React$Component) {
+	  _inherits(ActivitiesList, _React$Component);
 	
-	var ActivityList = function (_React$Component) {
-	  _inherits(ActivityList, _React$Component);
+	  function ActivitiesList(props) {
+	    _classCallCheck(this, ActivitiesList);
 	
-	  function ActivityList(props) {
-	    _classCallCheck(this, ActivityList);
-	
-	    var _this = _possibleConstructorReturn(this, (ActivityList.__proto__ || Object.getPrototypeOf(ActivityList)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (ActivitiesList.__proto__ || Object.getPrototypeOf(ActivitiesList)).call(this, props));
 	
 	    _this.props.fetchActivities();
 	    _this.renderActivities = _this.renderActivities.bind(_this);
 	    return _this;
 	  }
 	
-	  _createClass(ActivityList, [{
+	  _createClass(ActivitiesList, [{
 	    key: 'renderActivities',
 	    value: function renderActivities() {
 	      var activities = [];
@@ -28927,20 +28935,35 @@
 	      return activities;
 	    }
 	  }, {
+	    key: 'renderSorts',
+	    value: function renderSorts() {
+	      var sorts = [];
+	      for (var sortName in _activity_sort_actions.SORTS) {
+	        sorts.push(_react2.default.createElement(
+	          'div',
+	          { key: sortName, className: 'activity-list-sort-option', onClick: this.sort },
+	          sortName
+	        ));
+	      }
+	      return sorts;
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'activity-list-container' },
+	        _react2.default.createElement(_activities_sort2.default, null),
 	        this.renderActivities()
 	      );
 	    }
 	  }]);
 	
-	  return ActivityList;
+	  return ActivitiesList;
 	}(_react2.default.Component);
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)((0, _reactRouter.withRouter)(ActivityList));
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)((0, _reactRouter.withRouter)(ActivitiesList));
 
 /***/ }),
 /* 269 */
@@ -31889,6 +31912,8 @@
 	
 	var _activity_actions = __webpack_require__(266);
 	
+	var _activity_sort_actions = __webpack_require__(363);
+	
 	var _merge = __webpack_require__(274);
 	
 	var _merge2 = _interopRequireDefault(_merge);
@@ -31909,6 +31934,9 @@
 	  switch (action.type) {
 	    case _activity_actions.RECEIVE_ACTIVITIES:
 	      newState.activities = action.activities;
+	      return newState;
+	    case _activity_sort_actions.RECEIVE_SORTED_ACTIVITIES:
+	      newState.activities = action.sortedActivities;
 	      return newState;
 	    // case RECEIVE_ERRORS:
 	    // const errors = action.errors;
@@ -32041,6 +32069,1328 @@
 	}(_react2.default.Component);
 	
 	exports.default = Field;
+
+/***/ }),
+/* 363 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.receiveSortedActivities = exports.sortActivities = exports.SORTS = exports.ASC = exports.DESC = exports.RECEIVE_SORTED_ACTIVITIES = undefined;
+	
+	var _activity_sort_service = __webpack_require__(364);
+	
+	var SortUtil = _interopRequireWildcard(_activity_sort_service);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	var RECEIVE_SORTED_ACTIVITIES = exports.RECEIVE_SORTED_ACTIVITIES = 'RECEIVE_SORTED_ACTIVITIES';
+	
+	var DESC = exports.DESC = 'desc';
+	var ASC = exports.ASC = 'asc';
+	
+	var SORTS = exports.SORTS = {
+	  Value: 'value',
+	  Name: 'name'
+	};
+	
+	var sortActivities = exports.sortActivities = function sortActivities(activities, sortKey, order) {
+	  return function (dispatch) {
+	    var sortedActivities = SortUtil.sortActivities(activities, sortKey, order);
+	    dispatch(receiveSortedActivities(sortedActivities));
+	  };
+	};
+	
+	var receiveSortedActivities = exports.receiveSortedActivities = function receiveSortedActivities(sortedActivities) {
+	  return {
+	    type: RECEIVE_SORTED_ACTIVITIES,
+	    sortedActivities: sortedActivities
+	  };
+	};
+
+/***/ }),
+/* 364 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.sortActivities = undefined;
+	
+	var _cloneDeep = __webpack_require__(365);
+	
+	var _cloneDeep2 = _interopRequireDefault(_cloneDeep);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	//todo should this deal with duping activities or not?
+	var sortActivities = exports.sortActivities = function sortActivities(activities, sortKey, order) {
+	
+	  Object.freeze(activities);
+	  var sortedActivities = (0, _cloneDeep2.default)(activities);
+	  return sortedActivities.sort(compareValues(sortKey, order));
+	};
+	
+	// function for dynamic sorting
+	function compareValues(key) {
+	  var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'asc';
+	
+	  return function (a, b) {
+	    if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+	      // property doesn't exist on either object
+	      return 0;
+	    }
+	
+	    var varA = typeof a[key] === 'string' ? a[key].toUpperCase() : a[key];
+	    var varB = typeof b[key] === 'string' ? b[key].toUpperCase() : b[key];
+	
+	    var comparison = 0;
+	    if (varA > varB) {
+	      comparison = 1;
+	    } else if (varA < varB) {
+	      comparison = -1;
+	    }
+	    return order == 'desc' ? comparison * -1 : comparison;
+	  };
+	}
+
+/***/ }),
+/* 365 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var baseClone = __webpack_require__(366);
+	
+	/** Used to compose bitmasks for cloning. */
+	var CLONE_DEEP_FLAG = 1,
+	    CLONE_SYMBOLS_FLAG = 4;
+	
+	/**
+	 * This method is like `_.clone` except that it recursively clones `value`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 1.0.0
+	 * @category Lang
+	 * @param {*} value The value to recursively clone.
+	 * @returns {*} Returns the deep cloned value.
+	 * @see _.clone
+	 * @example
+	 *
+	 * var objects = [{ 'a': 1 }, { 'b': 2 }];
+	 *
+	 * var deep = _.cloneDeep(objects);
+	 * console.log(deep[0] === objects[0]);
+	 * // => false
+	 */
+	function cloneDeep(value) {
+	  return baseClone(value, CLONE_DEEP_FLAG | CLONE_SYMBOLS_FLAG);
+	}
+	
+	module.exports = cloneDeep;
+
+
+/***/ }),
+/* 366 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var Stack = __webpack_require__(276),
+	    arrayEach = __webpack_require__(367),
+	    assignValue = __webpack_require__(342),
+	    baseAssign = __webpack_require__(368),
+	    baseAssignIn = __webpack_require__(372),
+	    cloneBuffer = __webpack_require__(320),
+	    copyArray = __webpack_require__(324),
+	    copySymbols = __webpack_require__(373),
+	    copySymbolsIn = __webpack_require__(377),
+	    getAllKeys = __webpack_require__(380),
+	    getAllKeysIn = __webpack_require__(382),
+	    getTag = __webpack_require__(383),
+	    initCloneArray = __webpack_require__(388),
+	    initCloneByTag = __webpack_require__(389),
+	    initCloneObject = __webpack_require__(325),
+	    isArray = __webpack_require__(330),
+	    isBuffer = __webpack_require__(334),
+	    isObject = __webpack_require__(294),
+	    keys = __webpack_require__(369);
+	
+	/** Used to compose bitmasks for cloning. */
+	var CLONE_DEEP_FLAG = 1,
+	    CLONE_FLAT_FLAG = 2,
+	    CLONE_SYMBOLS_FLAG = 4;
+	
+	/** `Object#toString` result references. */
+	var argsTag = '[object Arguments]',
+	    arrayTag = '[object Array]',
+	    boolTag = '[object Boolean]',
+	    dateTag = '[object Date]',
+	    errorTag = '[object Error]',
+	    funcTag = '[object Function]',
+	    genTag = '[object GeneratorFunction]',
+	    mapTag = '[object Map]',
+	    numberTag = '[object Number]',
+	    objectTag = '[object Object]',
+	    regexpTag = '[object RegExp]',
+	    setTag = '[object Set]',
+	    stringTag = '[object String]',
+	    symbolTag = '[object Symbol]',
+	    weakMapTag = '[object WeakMap]';
+	
+	var arrayBufferTag = '[object ArrayBuffer]',
+	    dataViewTag = '[object DataView]',
+	    float32Tag = '[object Float32Array]',
+	    float64Tag = '[object Float64Array]',
+	    int8Tag = '[object Int8Array]',
+	    int16Tag = '[object Int16Array]',
+	    int32Tag = '[object Int32Array]',
+	    uint8Tag = '[object Uint8Array]',
+	    uint8ClampedTag = '[object Uint8ClampedArray]',
+	    uint16Tag = '[object Uint16Array]',
+	    uint32Tag = '[object Uint32Array]';
+	
+	/** Used to identify `toStringTag` values supported by `_.clone`. */
+	var cloneableTags = {};
+	cloneableTags[argsTag] = cloneableTags[arrayTag] =
+	cloneableTags[arrayBufferTag] = cloneableTags[dataViewTag] =
+	cloneableTags[boolTag] = cloneableTags[dateTag] =
+	cloneableTags[float32Tag] = cloneableTags[float64Tag] =
+	cloneableTags[int8Tag] = cloneableTags[int16Tag] =
+	cloneableTags[int32Tag] = cloneableTags[mapTag] =
+	cloneableTags[numberTag] = cloneableTags[objectTag] =
+	cloneableTags[regexpTag] = cloneableTags[setTag] =
+	cloneableTags[stringTag] = cloneableTags[symbolTag] =
+	cloneableTags[uint8Tag] = cloneableTags[uint8ClampedTag] =
+	cloneableTags[uint16Tag] = cloneableTags[uint32Tag] = true;
+	cloneableTags[errorTag] = cloneableTags[funcTag] =
+	cloneableTags[weakMapTag] = false;
+	
+	/**
+	 * The base implementation of `_.clone` and `_.cloneDeep` which tracks
+	 * traversed objects.
+	 *
+	 * @private
+	 * @param {*} value The value to clone.
+	 * @param {boolean} bitmask The bitmask flags.
+	 *  1 - Deep clone
+	 *  2 - Flatten inherited properties
+	 *  4 - Clone symbols
+	 * @param {Function} [customizer] The function to customize cloning.
+	 * @param {string} [key] The key of `value`.
+	 * @param {Object} [object] The parent object of `value`.
+	 * @param {Object} [stack] Tracks traversed objects and their clone counterparts.
+	 * @returns {*} Returns the cloned value.
+	 */
+	function baseClone(value, bitmask, customizer, key, object, stack) {
+	  var result,
+	      isDeep = bitmask & CLONE_DEEP_FLAG,
+	      isFlat = bitmask & CLONE_FLAT_FLAG,
+	      isFull = bitmask & CLONE_SYMBOLS_FLAG;
+	
+	  if (customizer) {
+	    result = object ? customizer(value, key, object, stack) : customizer(value);
+	  }
+	  if (result !== undefined) {
+	    return result;
+	  }
+	  if (!isObject(value)) {
+	    return value;
+	  }
+	  var isArr = isArray(value);
+	  if (isArr) {
+	    result = initCloneArray(value);
+	    if (!isDeep) {
+	      return copyArray(value, result);
+	    }
+	  } else {
+	    var tag = getTag(value),
+	        isFunc = tag == funcTag || tag == genTag;
+	
+	    if (isBuffer(value)) {
+	      return cloneBuffer(value, isDeep);
+	    }
+	    if (tag == objectTag || tag == argsTag || (isFunc && !object)) {
+	      result = (isFlat || isFunc) ? {} : initCloneObject(value);
+	      if (!isDeep) {
+	        return isFlat
+	          ? copySymbolsIn(value, baseAssignIn(result, value))
+	          : copySymbols(value, baseAssign(result, value));
+	      }
+	    } else {
+	      if (!cloneableTags[tag]) {
+	        return object ? value : {};
+	      }
+	      result = initCloneByTag(value, tag, baseClone, isDeep);
+	    }
+	  }
+	  // Check for circular references and return its corresponding clone.
+	  stack || (stack = new Stack);
+	  var stacked = stack.get(value);
+	  if (stacked) {
+	    return stacked;
+	  }
+	  stack.set(value, result);
+	
+	  var keysFunc = isFull
+	    ? (isFlat ? getAllKeysIn : getAllKeys)
+	    : (isFlat ? keysIn : keys);
+	
+	  var props = isArr ? undefined : keysFunc(value);
+	  arrayEach(props || value, function(subValue, key) {
+	    if (props) {
+	      key = subValue;
+	      subValue = value[key];
+	    }
+	    // Recursively populate clone (susceptible to call stack limits).
+	    assignValue(result, key, baseClone(subValue, bitmask, customizer, key, value, stack));
+	  });
+	  return result;
+	}
+	
+	module.exports = baseClone;
+
+
+/***/ }),
+/* 367 */
+/***/ (function(module, exports) {
+
+	/**
+	 * A specialized version of `_.forEach` for arrays without support for
+	 * iteratee shorthands.
+	 *
+	 * @private
+	 * @param {Array} [array] The array to iterate over.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @returns {Array} Returns `array`.
+	 */
+	function arrayEach(array, iteratee) {
+	  var index = -1,
+	      length = array == null ? 0 : array.length;
+	
+	  while (++index < length) {
+	    if (iteratee(array[index], index, array) === false) {
+	      break;
+	    }
+	  }
+	  return array;
+	}
+	
+	module.exports = arrayEach;
+
+
+/***/ }),
+/* 368 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var copyObject = __webpack_require__(341),
+	    keys = __webpack_require__(369);
+	
+	/**
+	 * The base implementation of `_.assign` without support for multiple sources
+	 * or `customizer` functions.
+	 *
+	 * @private
+	 * @param {Object} object The destination object.
+	 * @param {Object} source The source object.
+	 * @returns {Object} Returns `object`.
+	 */
+	function baseAssign(object, source) {
+	  return object && copyObject(source, keys(source), object);
+	}
+	
+	module.exports = baseAssign;
+
+
+/***/ }),
+/* 369 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var arrayLikeKeys = __webpack_require__(344),
+	    baseKeys = __webpack_require__(370),
+	    isArrayLike = __webpack_require__(332);
+	
+	/**
+	 * Creates an array of the own enumerable property names of `object`.
+	 *
+	 * **Note:** Non-object values are coerced to objects. See the
+	 * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+	 * for more details.
+	 *
+	 * @static
+	 * @since 0.1.0
+	 * @memberOf _
+	 * @category Object
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 *   this.b = 2;
+	 * }
+	 *
+	 * Foo.prototype.c = 3;
+	 *
+	 * _.keys(new Foo);
+	 * // => ['a', 'b'] (iteration order is not guaranteed)
+	 *
+	 * _.keys('hi');
+	 * // => ['0', '1']
+	 */
+	function keys(object) {
+	  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
+	}
+	
+	module.exports = keys;
+
+
+/***/ }),
+/* 370 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var isPrototype = __webpack_require__(327),
+	    nativeKeys = __webpack_require__(371);
+	
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+	
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+	
+	/**
+	 * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 */
+	function baseKeys(object) {
+	  if (!isPrototype(object)) {
+	    return nativeKeys(object);
+	  }
+	  var result = [];
+	  for (var key in Object(object)) {
+	    if (hasOwnProperty.call(object, key) && key != 'constructor') {
+	      result.push(key);
+	    }
+	  }
+	  return result;
+	}
+	
+	module.exports = baseKeys;
+
+
+/***/ }),
+/* 371 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var overArg = __webpack_require__(185);
+	
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeKeys = overArg(Object.keys, Object);
+	
+	module.exports = nativeKeys;
+
+
+/***/ }),
+/* 372 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var copyObject = __webpack_require__(341),
+	    keysIn = __webpack_require__(343);
+	
+	/**
+	 * The base implementation of `_.assignIn` without support for multiple sources
+	 * or `customizer` functions.
+	 *
+	 * @private
+	 * @param {Object} object The destination object.
+	 * @param {Object} source The source object.
+	 * @returns {Object} Returns `object`.
+	 */
+	function baseAssignIn(object, source) {
+	  return object && copyObject(source, keysIn(source), object);
+	}
+	
+	module.exports = baseAssignIn;
+
+
+/***/ }),
+/* 373 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var copyObject = __webpack_require__(341),
+	    getSymbols = __webpack_require__(374);
+	
+	/**
+	 * Copies own symbols of `source` to `object`.
+	 *
+	 * @private
+	 * @param {Object} source The object to copy symbols from.
+	 * @param {Object} [object={}] The object to copy symbols to.
+	 * @returns {Object} Returns `object`.
+	 */
+	function copySymbols(source, object) {
+	  return copyObject(source, getSymbols(source), object);
+	}
+	
+	module.exports = copySymbols;
+
+
+/***/ }),
+/* 374 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var arrayFilter = __webpack_require__(375),
+	    stubArray = __webpack_require__(376);
+	
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+	
+	/** Built-in value references. */
+	var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+	
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeGetSymbols = Object.getOwnPropertySymbols;
+	
+	/**
+	 * Creates an array of the own enumerable symbols of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of symbols.
+	 */
+	var getSymbols = !nativeGetSymbols ? stubArray : function(object) {
+	  if (object == null) {
+	    return [];
+	  }
+	  object = Object(object);
+	  return arrayFilter(nativeGetSymbols(object), function(symbol) {
+	    return propertyIsEnumerable.call(object, symbol);
+	  });
+	};
+	
+	module.exports = getSymbols;
+
+
+/***/ }),
+/* 375 */
+/***/ (function(module, exports) {
+
+	/**
+	 * A specialized version of `_.filter` for arrays without support for
+	 * iteratee shorthands.
+	 *
+	 * @private
+	 * @param {Array} [array] The array to iterate over.
+	 * @param {Function} predicate The function invoked per iteration.
+	 * @returns {Array} Returns the new filtered array.
+	 */
+	function arrayFilter(array, predicate) {
+	  var index = -1,
+	      length = array == null ? 0 : array.length,
+	      resIndex = 0,
+	      result = [];
+	
+	  while (++index < length) {
+	    var value = array[index];
+	    if (predicate(value, index, array)) {
+	      result[resIndex++] = value;
+	    }
+	  }
+	  return result;
+	}
+	
+	module.exports = arrayFilter;
+
+
+/***/ }),
+/* 376 */
+/***/ (function(module, exports) {
+
+	/**
+	 * This method returns a new empty array.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.13.0
+	 * @category Util
+	 * @returns {Array} Returns the new empty array.
+	 * @example
+	 *
+	 * var arrays = _.times(2, _.stubArray);
+	 *
+	 * console.log(arrays);
+	 * // => [[], []]
+	 *
+	 * console.log(arrays[0] === arrays[1]);
+	 * // => false
+	 */
+	function stubArray() {
+	  return [];
+	}
+	
+	module.exports = stubArray;
+
+
+/***/ }),
+/* 377 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var copyObject = __webpack_require__(341),
+	    getSymbolsIn = __webpack_require__(378);
+	
+	/**
+	 * Copies own and inherited symbols of `source` to `object`.
+	 *
+	 * @private
+	 * @param {Object} source The object to copy symbols from.
+	 * @param {Object} [object={}] The object to copy symbols to.
+	 * @returns {Object} Returns `object`.
+	 */
+	function copySymbolsIn(source, object) {
+	  return copyObject(source, getSymbolsIn(source), object);
+	}
+	
+	module.exports = copySymbolsIn;
+
+
+/***/ }),
+/* 378 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var arrayPush = __webpack_require__(379),
+	    getPrototype = __webpack_require__(184),
+	    getSymbols = __webpack_require__(374),
+	    stubArray = __webpack_require__(376);
+	
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeGetSymbols = Object.getOwnPropertySymbols;
+	
+	/**
+	 * Creates an array of the own and inherited enumerable symbols of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of symbols.
+	 */
+	var getSymbolsIn = !nativeGetSymbols ? stubArray : function(object) {
+	  var result = [];
+	  while (object) {
+	    arrayPush(result, getSymbols(object));
+	    object = getPrototype(object);
+	  }
+	  return result;
+	};
+	
+	module.exports = getSymbolsIn;
+
+
+/***/ }),
+/* 379 */
+/***/ (function(module, exports) {
+
+	/**
+	 * Appends the elements of `values` to `array`.
+	 *
+	 * @private
+	 * @param {Array} array The array to modify.
+	 * @param {Array} values The values to append.
+	 * @returns {Array} Returns `array`.
+	 */
+	function arrayPush(array, values) {
+	  var index = -1,
+	      length = values.length,
+	      offset = array.length;
+	
+	  while (++index < length) {
+	    array[offset + index] = values[index];
+	  }
+	  return array;
+	}
+	
+	module.exports = arrayPush;
+
+
+/***/ }),
+/* 380 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var baseGetAllKeys = __webpack_require__(381),
+	    getSymbols = __webpack_require__(374),
+	    keys = __webpack_require__(369);
+	
+	/**
+	 * Creates an array of own enumerable property names and symbols of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names and symbols.
+	 */
+	function getAllKeys(object) {
+	  return baseGetAllKeys(object, keys, getSymbols);
+	}
+	
+	module.exports = getAllKeys;
+
+
+/***/ }),
+/* 381 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var arrayPush = __webpack_require__(379),
+	    isArray = __webpack_require__(330);
+	
+	/**
+	 * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
+	 * `keysFunc` and `symbolsFunc` to get the enumerable property names and
+	 * symbols of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {Function} keysFunc The function to get the keys of `object`.
+	 * @param {Function} symbolsFunc The function to get the symbols of `object`.
+	 * @returns {Array} Returns the array of property names and symbols.
+	 */
+	function baseGetAllKeys(object, keysFunc, symbolsFunc) {
+	  var result = keysFunc(object);
+	  return isArray(object) ? result : arrayPush(result, symbolsFunc(object));
+	}
+	
+	module.exports = baseGetAllKeys;
+
+
+/***/ }),
+/* 382 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var baseGetAllKeys = __webpack_require__(381),
+	    getSymbolsIn = __webpack_require__(378),
+	    keysIn = __webpack_require__(343);
+	
+	/**
+	 * Creates an array of own and inherited enumerable property names and
+	 * symbols of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names and symbols.
+	 */
+	function getAllKeysIn(object) {
+	  return baseGetAllKeys(object, keysIn, getSymbolsIn);
+	}
+	
+	module.exports = getAllKeysIn;
+
+
+/***/ }),
+/* 383 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var DataView = __webpack_require__(384),
+	    Map = __webpack_require__(290),
+	    Promise = __webpack_require__(385),
+	    Set = __webpack_require__(386),
+	    WeakMap = __webpack_require__(387),
+	    baseGetTag = __webpack_require__(178),
+	    toSource = __webpack_require__(297);
+	
+	/** `Object#toString` result references. */
+	var mapTag = '[object Map]',
+	    objectTag = '[object Object]',
+	    promiseTag = '[object Promise]',
+	    setTag = '[object Set]',
+	    weakMapTag = '[object WeakMap]';
+	
+	var dataViewTag = '[object DataView]';
+	
+	/** Used to detect maps, sets, and weakmaps. */
+	var dataViewCtorString = toSource(DataView),
+	    mapCtorString = toSource(Map),
+	    promiseCtorString = toSource(Promise),
+	    setCtorString = toSource(Set),
+	    weakMapCtorString = toSource(WeakMap);
+	
+	/**
+	 * Gets the `toStringTag` of `value`.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the `toStringTag`.
+	 */
+	var getTag = baseGetTag;
+	
+	// Fallback for data views, maps, sets, and weak maps in IE 11 and promises in Node.js < 6.
+	if ((DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag) ||
+	    (Map && getTag(new Map) != mapTag) ||
+	    (Promise && getTag(Promise.resolve()) != promiseTag) ||
+	    (Set && getTag(new Set) != setTag) ||
+	    (WeakMap && getTag(new WeakMap) != weakMapTag)) {
+	  getTag = function(value) {
+	    var result = baseGetTag(value),
+	        Ctor = result == objectTag ? value.constructor : undefined,
+	        ctorString = Ctor ? toSource(Ctor) : '';
+	
+	    if (ctorString) {
+	      switch (ctorString) {
+	        case dataViewCtorString: return dataViewTag;
+	        case mapCtorString: return mapTag;
+	        case promiseCtorString: return promiseTag;
+	        case setCtorString: return setTag;
+	        case weakMapCtorString: return weakMapTag;
+	      }
+	    }
+	    return result;
+	  };
+	}
+	
+	module.exports = getTag;
+
+
+/***/ }),
+/* 384 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var getNative = __webpack_require__(291),
+	    root = __webpack_require__(180);
+	
+	/* Built-in method references that are verified to be native. */
+	var DataView = getNative(root, 'DataView');
+	
+	module.exports = DataView;
+
+
+/***/ }),
+/* 385 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var getNative = __webpack_require__(291),
+	    root = __webpack_require__(180);
+	
+	/* Built-in method references that are verified to be native. */
+	var Promise = getNative(root, 'Promise');
+	
+	module.exports = Promise;
+
+
+/***/ }),
+/* 386 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var getNative = __webpack_require__(291),
+	    root = __webpack_require__(180);
+	
+	/* Built-in method references that are verified to be native. */
+	var Set = getNative(root, 'Set');
+	
+	module.exports = Set;
+
+
+/***/ }),
+/* 387 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var getNative = __webpack_require__(291),
+	    root = __webpack_require__(180);
+	
+	/* Built-in method references that are verified to be native. */
+	var WeakMap = getNative(root, 'WeakMap');
+	
+	module.exports = WeakMap;
+
+
+/***/ }),
+/* 388 */
+/***/ (function(module, exports) {
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+	
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+	
+	/**
+	 * Initializes an array clone.
+	 *
+	 * @private
+	 * @param {Array} array The array to clone.
+	 * @returns {Array} Returns the initialized clone.
+	 */
+	function initCloneArray(array) {
+	  var length = array.length,
+	      result = array.constructor(length);
+	
+	  // Add properties assigned by `RegExp#exec`.
+	  if (length && typeof array[0] == 'string' && hasOwnProperty.call(array, 'index')) {
+	    result.index = array.index;
+	    result.input = array.input;
+	  }
+	  return result;
+	}
+	
+	module.exports = initCloneArray;
+
+
+/***/ }),
+/* 389 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var cloneArrayBuffer = __webpack_require__(322),
+	    cloneDataView = __webpack_require__(390),
+	    cloneMap = __webpack_require__(391),
+	    cloneRegExp = __webpack_require__(395),
+	    cloneSet = __webpack_require__(396),
+	    cloneSymbol = __webpack_require__(399),
+	    cloneTypedArray = __webpack_require__(321);
+	
+	/** `Object#toString` result references. */
+	var boolTag = '[object Boolean]',
+	    dateTag = '[object Date]',
+	    mapTag = '[object Map]',
+	    numberTag = '[object Number]',
+	    regexpTag = '[object RegExp]',
+	    setTag = '[object Set]',
+	    stringTag = '[object String]',
+	    symbolTag = '[object Symbol]';
+	
+	var arrayBufferTag = '[object ArrayBuffer]',
+	    dataViewTag = '[object DataView]',
+	    float32Tag = '[object Float32Array]',
+	    float64Tag = '[object Float64Array]',
+	    int8Tag = '[object Int8Array]',
+	    int16Tag = '[object Int16Array]',
+	    int32Tag = '[object Int32Array]',
+	    uint8Tag = '[object Uint8Array]',
+	    uint8ClampedTag = '[object Uint8ClampedArray]',
+	    uint16Tag = '[object Uint16Array]',
+	    uint32Tag = '[object Uint32Array]';
+	
+	/**
+	 * Initializes an object clone based on its `toStringTag`.
+	 *
+	 * **Note:** This function only supports cloning values with tags of
+	 * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
+	 *
+	 * @private
+	 * @param {Object} object The object to clone.
+	 * @param {string} tag The `toStringTag` of the object to clone.
+	 * @param {Function} cloneFunc The function to clone values.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @returns {Object} Returns the initialized clone.
+	 */
+	function initCloneByTag(object, tag, cloneFunc, isDeep) {
+	  var Ctor = object.constructor;
+	  switch (tag) {
+	    case arrayBufferTag:
+	      return cloneArrayBuffer(object);
+	
+	    case boolTag:
+	    case dateTag:
+	      return new Ctor(+object);
+	
+	    case dataViewTag:
+	      return cloneDataView(object, isDeep);
+	
+	    case float32Tag: case float64Tag:
+	    case int8Tag: case int16Tag: case int32Tag:
+	    case uint8Tag: case uint8ClampedTag: case uint16Tag: case uint32Tag:
+	      return cloneTypedArray(object, isDeep);
+	
+	    case mapTag:
+	      return cloneMap(object, isDeep, cloneFunc);
+	
+	    case numberTag:
+	    case stringTag:
+	      return new Ctor(object);
+	
+	    case regexpTag:
+	      return cloneRegExp(object);
+	
+	    case setTag:
+	      return cloneSet(object, isDeep, cloneFunc);
+	
+	    case symbolTag:
+	      return cloneSymbol(object);
+	  }
+	}
+	
+	module.exports = initCloneByTag;
+
+
+/***/ }),
+/* 390 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var cloneArrayBuffer = __webpack_require__(322);
+	
+	/**
+	 * Creates a clone of `dataView`.
+	 *
+	 * @private
+	 * @param {Object} dataView The data view to clone.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @returns {Object} Returns the cloned data view.
+	 */
+	function cloneDataView(dataView, isDeep) {
+	  var buffer = isDeep ? cloneArrayBuffer(dataView.buffer) : dataView.buffer;
+	  return new dataView.constructor(buffer, dataView.byteOffset, dataView.byteLength);
+	}
+	
+	module.exports = cloneDataView;
+
+
+/***/ }),
+/* 391 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var addMapEntry = __webpack_require__(392),
+	    arrayReduce = __webpack_require__(393),
+	    mapToArray = __webpack_require__(394);
+	
+	/** Used to compose bitmasks for cloning. */
+	var CLONE_DEEP_FLAG = 1;
+	
+	/**
+	 * Creates a clone of `map`.
+	 *
+	 * @private
+	 * @param {Object} map The map to clone.
+	 * @param {Function} cloneFunc The function to clone values.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @returns {Object} Returns the cloned map.
+	 */
+	function cloneMap(map, isDeep, cloneFunc) {
+	  var array = isDeep ? cloneFunc(mapToArray(map), CLONE_DEEP_FLAG) : mapToArray(map);
+	  return arrayReduce(array, addMapEntry, new map.constructor);
+	}
+	
+	module.exports = cloneMap;
+
+
+/***/ }),
+/* 392 */
+/***/ (function(module, exports) {
+
+	/**
+	 * Adds the key-value `pair` to `map`.
+	 *
+	 * @private
+	 * @param {Object} map The map to modify.
+	 * @param {Array} pair The key-value pair to add.
+	 * @returns {Object} Returns `map`.
+	 */
+	function addMapEntry(map, pair) {
+	  // Don't return `map.set` because it's not chainable in IE 11.
+	  map.set(pair[0], pair[1]);
+	  return map;
+	}
+	
+	module.exports = addMapEntry;
+
+
+/***/ }),
+/* 393 */
+/***/ (function(module, exports) {
+
+	/**
+	 * A specialized version of `_.reduce` for arrays without support for
+	 * iteratee shorthands.
+	 *
+	 * @private
+	 * @param {Array} [array] The array to iterate over.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @param {*} [accumulator] The initial value.
+	 * @param {boolean} [initAccum] Specify using the first element of `array` as
+	 *  the initial value.
+	 * @returns {*} Returns the accumulated value.
+	 */
+	function arrayReduce(array, iteratee, accumulator, initAccum) {
+	  var index = -1,
+	      length = array == null ? 0 : array.length;
+	
+	  if (initAccum && length) {
+	    accumulator = array[++index];
+	  }
+	  while (++index < length) {
+	    accumulator = iteratee(accumulator, array[index], index, array);
+	  }
+	  return accumulator;
+	}
+	
+	module.exports = arrayReduce;
+
+
+/***/ }),
+/* 394 */
+/***/ (function(module, exports) {
+
+	/**
+	 * Converts `map` to its key-value pairs.
+	 *
+	 * @private
+	 * @param {Object} map The map to convert.
+	 * @returns {Array} Returns the key-value pairs.
+	 */
+	function mapToArray(map) {
+	  var index = -1,
+	      result = Array(map.size);
+	
+	  map.forEach(function(value, key) {
+	    result[++index] = [key, value];
+	  });
+	  return result;
+	}
+	
+	module.exports = mapToArray;
+
+
+/***/ }),
+/* 395 */
+/***/ (function(module, exports) {
+
+	/** Used to match `RegExp` flags from their coerced string values. */
+	var reFlags = /\w*$/;
+	
+	/**
+	 * Creates a clone of `regexp`.
+	 *
+	 * @private
+	 * @param {Object} regexp The regexp to clone.
+	 * @returns {Object} Returns the cloned regexp.
+	 */
+	function cloneRegExp(regexp) {
+	  var result = new regexp.constructor(regexp.source, reFlags.exec(regexp));
+	  result.lastIndex = regexp.lastIndex;
+	  return result;
+	}
+	
+	module.exports = cloneRegExp;
+
+
+/***/ }),
+/* 396 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var addSetEntry = __webpack_require__(397),
+	    arrayReduce = __webpack_require__(393),
+	    setToArray = __webpack_require__(398);
+	
+	/** Used to compose bitmasks for cloning. */
+	var CLONE_DEEP_FLAG = 1;
+	
+	/**
+	 * Creates a clone of `set`.
+	 *
+	 * @private
+	 * @param {Object} set The set to clone.
+	 * @param {Function} cloneFunc The function to clone values.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @returns {Object} Returns the cloned set.
+	 */
+	function cloneSet(set, isDeep, cloneFunc) {
+	  var array = isDeep ? cloneFunc(setToArray(set), CLONE_DEEP_FLAG) : setToArray(set);
+	  return arrayReduce(array, addSetEntry, new set.constructor);
+	}
+	
+	module.exports = cloneSet;
+
+
+/***/ }),
+/* 397 */
+/***/ (function(module, exports) {
+
+	/**
+	 * Adds `value` to `set`.
+	 *
+	 * @private
+	 * @param {Object} set The set to modify.
+	 * @param {*} value The value to add.
+	 * @returns {Object} Returns `set`.
+	 */
+	function addSetEntry(set, value) {
+	  // Don't return `set.add` because it's not chainable in IE 11.
+	  set.add(value);
+	  return set;
+	}
+	
+	module.exports = addSetEntry;
+
+
+/***/ }),
+/* 398 */
+/***/ (function(module, exports) {
+
+	/**
+	 * Converts `set` to an array of its values.
+	 *
+	 * @private
+	 * @param {Object} set The set to convert.
+	 * @returns {Array} Returns the values.
+	 */
+	function setToArray(set) {
+	  var index = -1,
+	      result = Array(set.size);
+	
+	  set.forEach(function(value) {
+	    result[++index] = value;
+	  });
+	  return result;
+	}
+	
+	module.exports = setToArray;
+
+
+/***/ }),
+/* 399 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var Symbol = __webpack_require__(179);
+	
+	/** Used to convert symbols to primitives and strings. */
+	var symbolProto = Symbol ? Symbol.prototype : undefined,
+	    symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
+	
+	/**
+	 * Creates a clone of the `symbol` object.
+	 *
+	 * @private
+	 * @param {Object} symbol The symbol object to clone.
+	 * @returns {Object} Returns the cloned symbol object.
+	 */
+	function cloneSymbol(symbol) {
+	  return symbolValueOf ? Object(symbolValueOf.call(symbol)) : {};
+	}
+	
+	module.exports = cloneSymbol;
+
+
+/***/ }),
+/* 400 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(198);
+	
+	var _reactRedux = __webpack_require__(160);
+	
+	var _activity_actions = __webpack_require__(266);
+	
+	var _activity_sort_actions = __webpack_require__(363);
+	
+	var _activity = __webpack_require__(269);
+	
+	var _activity2 = _interopRequireDefault(_activity);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var mapStateToProps = function mapStateToProps(_ref) {
+	  var activities = _ref.activities;
+	  return {
+	    //smell I shouldn't have to access activites here. Better if I didn't need to pass activites into the sort
+	    // Although that does allow the sort to be more generic
+	    activities: activities.activities
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    sortActivities: function sortActivities(activites, sortKey, order) {
+	      return dispatch((0, _activity_sort_actions.sortActivities)(activites, sortKey, order));
+	    }
+	
+	  };
+	};
+	
+	var ActivitiesSort = function (_React$Component) {
+	  _inherits(ActivitiesSort, _React$Component);
+	
+	  function ActivitiesSort(props) {
+	    _classCallCheck(this, ActivitiesSort);
+	
+	    var _this = _possibleConstructorReturn(this, (ActivitiesSort.__proto__ || Object.getPrototypeOf(ActivitiesSort)).call(this, props));
+	
+	    _this.sort = _this.sort.bind(_this);
+	    _this.state = {
+	      sort: '',
+	      order: 'desc'
+	
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(ActivitiesSort, [{
+	    key: 'sort',
+	    value: function sort(sortName) {
+	      var order = this.state.order;
+	      if (this.state.sort === sortName) {
+	        order = order === 'asc' ? 'desc' : 'asc';
+	      }
+	
+	      this.props.sortActivities(this.props.activities, sortName, order);
+	      this.setState({
+	        sort: sortName,
+	        order: order
+	      });
+	    }
+	  }, {
+	    key: 'renderSorts',
+	    value: function renderSorts() {
+	      var _this2 = this;
+	
+	      var sorts = [];
+	
+	      var _loop = function _loop(sortName) {
+	        var highlighted = _this2.state.sort === _activity_sort_actions.SORTS[sortName] ? ' highlighted' : '';
+	
+	        sorts.push(_react2.default.createElement(
+	          'div',
+	          { key: sortName, className: 'activity-list-sort-option' + highlighted, onClick: function onClick() {
+	              return _this2.sort(_activity_sort_actions.SORTS[sortName]);
+	            } },
+	          sortName
+	        ));
+	      };
+	
+	      for (var sortName in _activity_sort_actions.SORTS) {
+	        _loop(sortName);
+	      }
+	      return sorts;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'activity-list-sort' },
+	        this.renderSorts()
+	      );
+	    }
+	  }]);
+	
+	  return ActivitiesSort;
+	}(_react2.default.Component);
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ActivitiesSort);
 
 /***/ })
 /******/ ]);

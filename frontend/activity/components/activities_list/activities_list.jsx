@@ -2,7 +2,9 @@ import React from 'react';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchActivities  } from '../../actions/activity_actions'
+import {SORTS, sortActivities} from '../../actions/activity_sort_actions'
 import Activity from './activity'
+import ActivitiesSort from './activities_sort'
 
 const mapStateToProps = ({activities}) => ({
   activities: activities.activities,
@@ -10,10 +12,11 @@ const mapStateToProps = ({activities}) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchActivities: activities => dispatch(fetchActivities(activities)),
+  sortActivities: (activites, sortKey, order) => dispatch(sortActivities(activites, sortKey, order))
+
 });
 
-//TODO the name of this doesn't match the file name :(
-class ActivityList extends React.Component {
+class ActivitiesList extends React.Component {
   constructor(props) {
     super(props);
     this.props.fetchActivities()
@@ -31,9 +34,25 @@ class ActivityList extends React.Component {
   return activities
 }
 
+renderSorts() {
+  let sorts = []
+  for (let sortName in SORTS) {
+    sorts.push(
+      <div key={sortName} className='activity-list-sort-option' onClick={this.sort}>
+        {sortName}
+      </div>
+    )
+  }
+  return sorts
+}
+
+
+
   render() {
+
     return (
       <div className="activity-list-container">
+      <ActivitiesSort />
         {this.renderActivities()}
       </div>
     )
@@ -43,4 +62,4 @@ class ActivityList extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(ActivityList));
+)(withRouter(ActivitiesList));
