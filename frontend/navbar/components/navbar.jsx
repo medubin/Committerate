@@ -18,13 +18,17 @@ const mapDispatchToProps = dispatch => ({
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
-    this.props.fetchActivityStats()
     this.logout = this.logout.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.currentUser && nextProps.currentUser) {
+      this.props.fetchActivityStats()
+    }
   }
 
   logout(e) {
     e.preventDefault()
-
     this.props.logout()
     window.location.reload()
   }
@@ -40,6 +44,7 @@ class Navbar extends React.Component {
               <li><Link to="/">{this.props.score}</Link></li>
               <li><Link to="/activity/">Log Activity</Link></li>
               <li><Link to="/activity/new/">New Activity</Link></li>
+              <li><Link to="/login" onClick={this.logout}>Logout</Link></li>
             </ul>
         </nav>
        )
