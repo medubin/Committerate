@@ -19,6 +19,10 @@ class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.logout = this.logout.bind(this);
+
+    if (this.props.currentUser) {
+      this.props.fetchActivityStats()
+    }
   }
 
   componentWillReceiveProps(nextProps) {

@@ -28008,6 +28008,10 @@
 	    var _this = _possibleConstructorReturn(this, (Navbar.__proto__ || Object.getPrototypeOf(Navbar)).call(this, props));
 	
 	    _this.logout = _this.logout.bind(_this);
+	
+	    if (_this.props.currentUser) {
+	      _this.props.fetchActivityStats();
+	    }
 	    return _this;
 	  }
 	
