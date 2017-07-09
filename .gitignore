@@ -22,8 +22,9 @@
 # Ignore Node Modules
 /node_modules
 
-# Ignore Webpack Bundle
-/app/assets/javascripts/bundle*
+# Ignore bundle
+bundle.js
+bundle.js.map
 
 # Ignore Secrets
 /config/secrets.yml
