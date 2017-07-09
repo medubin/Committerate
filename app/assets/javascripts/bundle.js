@@ -28950,6 +28950,10 @@
 	
 	var _activities_sort2 = _interopRequireDefault(_activities_sort);
 	
+	var _activity_closeup = __webpack_require__(401);
+	
+	var _activity_closeup2 = _interopRequireDefault(_activity_closeup);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28987,18 +28991,47 @@
 	
 	    _this.props.fetchActivities();
 	    _this.renderActivities = _this.renderActivities.bind(_this);
+	    _this.renderCloseup = _this.renderCloseup.bind(_this);
+	    _this.openCloseup = _this.openCloseup.bind(_this);
+	    _this.closeCloseup = _this.closeCloseup.bind(_this);
+	    _this.state = {
+	      selected: null
+	    };
 	    return _this;
 	  }
 	
 	  _createClass(ActivitiesList, [{
 	    key: 'renderActivities',
 	    value: function renderActivities() {
+	      var _this2 = this;
+	
 	      var activities = [];
+	
+	      var _loop = function _loop(key) {
+	        activities.push(_react2.default.createElement(_activity2.default, { activity: _this2.props.activities[key], key: key, openCloseup: function openCloseup(e) {
+	            return console.log(_this2) || _this2.openCloseup(e, key);
+	          } }));
+	      };
+	
 	      for (var key in this.props.activities) {
-	        var activityType = 'activity-' + (this.props.activities[key].value > 0 ? 'good' : 'bad');
-	        activities.push(_react2.default.createElement(_activity2.default, { activity: this.props.activities[key], key: key }));
+	        _loop(key);
 	      }
 	      return activities;
+	    }
+	  }, {
+	    key: 'openCloseup',
+	    value: function openCloseup(e, selected) {
+	      e.preventDefault();
+	      this.setState({
+	        selected: selected
+	      });
+	    }
+	  }, {
+	    key: 'closeCloseup',
+	    value: function closeCloseup() {
+	      this.setState({
+	        selected: null
+	      });
 	    }
 	  }, {
 	    key: 'renderSorts',
@@ -29014,14 +29047,26 @@
 	      return sorts;
 	    }
 	  }, {
+	    key: 'renderCloseup',
+	    value: function renderCloseup() {
+	      var _this3 = this;
+	
+	      var selected = this.state.selected;
+	      if (selected && this.props.activities[selected]) {
+	        return _react2.default.createElement(_activity_closeup2.default, { activity: this.props.activities[0], closeCloseup: function closeCloseup() {
+	            return _this3.closeCloseup();
+	          } });
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'activity-list-container' },
+	        { className: 'activity-list' },
 	        _react2.default.createElement(_activities_sort2.default, null),
-	        this.renderActivities()
+	        this.renderActivities(),
+	        this.renderCloseup()
 	      );
 	    }
 	  }]);
@@ -32296,8 +32341,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-	
 	      var activityType = 'activity-' + (this.props.activity.value > 0 ? 'good' : 'bad');
 	
 	      var name = this.props.activity.name;
@@ -32308,9 +32351,7 @@
 	
 	      return _react2.default.createElement(
 	        'a',
-	        { href: '#', className: 'activity-list-item ' + activityType, onClick: function onClick(e) {
-	            return _this2.handleClick(e);
-	          } },
+	        { href: '#', className: 'activity-list-item ' + activityType, onClick: this.props.openCloseup },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'activity-list-item-name' },
@@ -32350,13 +32391,12 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(198);
-	
-	var _reactRedux = __webpack_require__(160);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+	
+	// import { Link, withRouter } from 'react-router';
+	// import { connect } from 'react-redux';
 	
 	var ActivityProgress = function ActivityProgress(_ref) {
 	  _objectDestructuringEmpty(_ref);
@@ -33409,6 +33449,52 @@
 	thunk.withExtraArgument = createThunkMiddleware;
 	
 	exports['default'] = thunk;
+
+/***/ }),
+/* 401 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ActivityCloseup = function ActivityCloseup(_ref) {
+	  var activity = _ref.activity,
+	      closeCloseup = _ref.closeCloseup;
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'background-closeup', onClick: closeCloseup },
+	    _react2.default.createElement(
+	      'a',
+	      { href: '#', className: 'closeup' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'closeup-name' },
+	        activity.name
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'closeup-description' },
+	        activity.description
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'closeup-value' },
+	        activity.value
+	      )
+	    )
+	  );
+	};
+	
+	exports.default = ActivityCloseup;
 
 /***/ })
 /******/ ]);

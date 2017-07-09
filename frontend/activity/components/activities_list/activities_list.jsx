@@ -5,6 +5,7 @@ import { fetchActivities  } from '../../actions/activity_actions'
 import {SORTS, sortActivities} from '../../actions/activity_sort_actions'
 import Activity from './activity'
 import ActivitiesSort from './activities_sort'
+import ActivityCloseup from './activity_closeup'
 
 const mapStateToProps = ({activities}) => ({
   activities: activities.activities,
@@ -21,39 +22,64 @@ class ActivitiesList extends React.Component {
     super(props);
     this.props.fetchActivities()
     this.renderActivities = this.renderActivities.bind(this)
+    this.renderCloseup = this.renderCloseup.bind(this)
+    this.openCloseup = this.openCloseup.bind(this)
+    this.closeCloseup = this.closeCloseup.bind(this)
+    this.state = {
+      selected: null
+    }
   }
 
   renderActivities() {
     let activities = []
     for(let key in this.props.activities) {
-      let activityType = 'activity-' + (this.props.activities[key].value > 0 ? 'good' : 'bad')
       activities.push(
-        <Activity activity={this.props.activities[key]} key={key}/>
+        <Activity activity={this.props.activities[key]} key={key} openCloseup={(e) => console.log(this) || this.openCloseup(e, key)}/>
       )
+    }
+    return activities
   }
-  return activities
-}
 
-renderSorts() {
-  let sorts = []
-  for (let sortName in SORTS) {
-    sorts.push(
-      <div key={sortName} className='activity-list-sort-option' onClick={this.sort}>
-        {sortName}
-      </div>
-    )
+  openCloseup(e, selected) {
+    e.preventDefault();
+    this.setState({
+      selected: selected
+    })
   }
-  return sorts
-}
+
+  closeCloseup() {
+    this.setState({
+      selected: null
+    })
+  }
+
+  renderSorts() {
+    let sorts = []
+    for (let sortName in SORTS) {
+      sorts.push(
+        <div key={sortName} className='activity-list-sort-option' onClick={this.sort}>
+          {sortName}
+        </div>
+      )
+    }
+    return sorts
+  }
+
+  renderCloseup() {
+    let selected = this.state.selected
+    if (selected && this.props.activities[selected]) {
+      return <ActivityCloseup activity={this.props.activities[0]} closeCloseup={() => this.closeCloseup()} />
+    }
+  }
 
 
 
   render() {
-
     return (
-      <div className="activity-list-container">
+      <div className="activity-list">
       <ActivitiesSort />
         {this.renderActivities()}
+        {this.renderCloseup()}
       </div>
     )
   }

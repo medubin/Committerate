@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router';
-import { connect } from 'react-redux';
+// import { Link, withRouter } from 'react-router';
+// import { connect } from 'react-redux';
 
 const ActivityProgress = ({}) => (
         <span className='activity-list-item-progress'>

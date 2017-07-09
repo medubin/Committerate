@@ -21,6 +21,7 @@ class Activity extends React.Component {
     this.props.logActivity(this.props.activity)
   }
 
+
   render() {
     let activityType = 'activity-' + (this.props.activity.value > 0 ? 'good' : 'bad')
 
@@ -31,7 +32,7 @@ class Activity extends React.Component {
     description = description.length < 100 ? description : description.substr(0, 97) + '...'
 
     return (
-      <a href='#' className={'activity-list-item ' + activityType} onClick={ (e) => this.handleClick(e) }>
+      <a href='#' className={'activity-list-item ' + activityType} onClick={ this.props.openCloseup }>
         <div className='activity-list-item-name'>
           {name}
         </div>
@@ -43,7 +44,6 @@ class Activity extends React.Component {
         <div className='activity-list-item-value'>
           {this.props.activity.value}
         </div>
-
       </a>
     )
     //<ActivityProgress />

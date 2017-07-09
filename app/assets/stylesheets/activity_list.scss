@@ -1,4 +1,4 @@
-.activity-list-container {
+.activity-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -19,7 +19,6 @@
     font-size: 14px;
     overflow: hidden;
 
-
     .activity-list-item-name {
       display: block;
       max-width: 80%;
@@ -30,7 +29,6 @@
     .activity-list-item-description {
       font-size: 11px;
       line-height: 16px;
-      // text-transform: uppercase;
     }
 
     .activity-list-item-value {
@@ -54,15 +52,15 @@
   }
 
   .activity-bad:hover {
-    background-color: lighten(red, 20);
+    background-color: #EDAFB8;
   }
 
   .activity-good:hover {
-    background-color: lighten(green, 50);
+    background-color: #B0C4B1;
   }
 
   .activity-list-item:active {
-    background-color: blue;
+    background-color: #4E5166;
 
   }
 
@@ -96,6 +94,7 @@
         background: #8DC63F;
       }
    }
+
 
    .activity-list-item-progress-labels {
      position: absolute;
@@ -158,4 +157,51 @@
  }
 
 
+}
+
+
+
+.background-closeup {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.closeup {
+  border-radius: 2px;
+  background: white;
+  box-shadow: 0 2px 1px rgba(170, 170, 170, 0.25);
+  position: fixed;
+  z-index: 11;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 60%;
+
+  .closeup-name {
+    display: block;
+    max-width: 80%;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .closeup-description {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .closeup-value {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 16px;
+  }
 }
