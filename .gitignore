@@ -23,8 +23,8 @@
 /node_modules
 
 # Ignore bundle
-bundle.js
-bundle.js.map
+/app/assets/javascripts/bundle.js
+/app/assets/javascripts/bundle.js.map
 
 # Ignore Secrets
 /config/secrets.yml
