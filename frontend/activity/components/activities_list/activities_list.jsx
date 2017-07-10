@@ -6,6 +6,7 @@ import {SORTS, sortActivities} from '../../actions/activity_sort_actions'
 import Activity from './activity'
 import ActivitiesSort from './activities_sort'
 import ActivityCloseup from './activity_closeup'
+import '../../scss/activity_list.scss';
 
 const mapStateToProps = ({activities}) => ({
   activities: activities.activities,
@@ -34,7 +35,7 @@ class ActivitiesList extends React.Component {
     let activities = []
     for(let key in this.props.activities) {
       activities.push(
-        <Activity activity={this.props.activities[key]} key={key} openCloseup={(e) => console.log(this) || this.openCloseup(e, key)}/>
+        <Activity activity={this.props.activities[key]} key={key} openCloseup={(e) => this.openCloseup(e, key)}/>
       )
     }
     return activities

@@ -3,6 +3,7 @@ import { Link, withRouter, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { logout } from '../../session/actions/session_actions';
 import {fetchActivityStats} from '../../activity/actions/activity_stats_actions'
+import '../scss/navbar.scss'
 
 const mapStateToProps = ({ session, activityStats }) => ({
   currentUser: session.currentUser,

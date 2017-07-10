@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import Navbar from '../navbar/components/navbar';
+import './scss/app.scss'
 
 
 const App = ({ children }) => (

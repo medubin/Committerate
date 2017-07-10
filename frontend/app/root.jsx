@@ -7,7 +7,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 // react components
 import App from './app'
 import SessionForm from '../session/components/session_form'
-import Landing from '../landing/landing'
+import Landing from '../landing/components/landing'
 import NewActivityForm from "../activity/components/new_activity_form/new_activity_form"
 import ActivitiesList from "../activity/components/activities_list/activities_list"
 

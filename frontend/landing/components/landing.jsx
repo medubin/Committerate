@@ -1,7 +1,8 @@
 import React from 'react'
 import { Router,  hashHistory, withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import {fetchActivityStats} from '../activity/actions/activity_stats_actions'
+import {fetchActivityStats} from '../../activity/actions/activity_stats_actions'
+import '../scss/landing.scss'
 
 const mapStateToProps = ({ activityStats }) => ({
   score: activityStats.score

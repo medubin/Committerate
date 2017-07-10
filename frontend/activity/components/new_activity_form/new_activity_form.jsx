@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { createActivity } from '../../actions/activity_actions'
+import '../../../app/scss/form.scss'
 
 const mapStateToProps = ({ }) => ({
 

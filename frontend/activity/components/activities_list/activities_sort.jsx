@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { fetchActivities  } from '../../actions/activity_actions'
 import {SORTS, sortActivities} from '../../actions/activity_sort_actions'
 import Activity from './activity'
+import '../../scss/activity_list_sort.scss';
+
+
 
 const mapStateToProps = ({activities}) => ({
   //smell I shouldn't have to access activites here. Better if I didn't need to pass activites into the sort

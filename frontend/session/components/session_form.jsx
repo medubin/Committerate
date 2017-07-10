@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router';
 import Field from './_field'
 import { connect } from 'react-redux';
 import { login, logout, signup } from '../actions/session_actions';
+import '../../app/scss/form.scss'
 
 
 
