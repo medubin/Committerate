@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../scss/activity_closeup.scss';
 
 const ActivityCloseup = ({activity, closeCloseup}) => (
   <div className='background-closeup' onClick={closeCloseup}>
