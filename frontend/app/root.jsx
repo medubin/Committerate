@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 
 // react router
-import { Router, Route, IndexRoute, hashHistory } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 // react components
 import App from './app'
@@ -32,7 +32,7 @@ const Root = ({ store }) => {
 
   return (
     <Provider store={store}>
-       <Router history={hashHistory}>
+       <Router history={browserHistory}>
          <Route path="/" component={App}>
            <IndexRoute component={Landing} onEnter={_ensureLoggedIn} />
            <Route path="/login" component={SessionForm} onEnter={_redirectIfLoggedIn} />

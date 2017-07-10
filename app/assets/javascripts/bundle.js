@@ -58,7 +58,7 @@
 	
 	var _root2 = _interopRequireDefault(_root);
 	
-	var _store = __webpack_require__(377);
+	var _store = __webpack_require__(378);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
@@ -19843,7 +19843,7 @@
 	    { store: store },
 	    _react2.default.createElement(
 	      _reactRouter.Router,
-	      { history: _reactRouter.hashHistory },
+	      { history: _reactRouter.browserHistory },
 	      _react2.default.createElement(
 	        _reactRouter.Route,
 	        { path: '/', component: _app2.default },
@@ -28304,7 +28304,7 @@
 	var fetchActivityStats = exports.fetchActivityStats = function fetchActivityStats() {
 	  return $.ajax({
 	    method: 'GET',
-	    url: 'api/activity_stats/'
+	    url: '/api/activity_stats/'
 	  });
 	};
 
@@ -28896,7 +28896,7 @@
 	var createActivity = exports.createActivity = function createActivity(activity) {
 	  return $.ajax({
 	    method: 'POST',
-	    url: 'api/activities',
+	    url: '/api/activities',
 	    data: activity
 	  });
 	};
@@ -28904,14 +28904,14 @@
 	var fetchActivities = exports.fetchActivities = function fetchActivities() {
 	  return $.ajax({
 	    method: 'GET',
-	    url: 'api/activities'
+	    url: '/api/activities'
 	  });
 	};
 	
 	var logActivity = exports.logActivity = function logActivity(activity) {
 	  return $.ajax({
 	    method: 'POST',
-	    url: 'api/activity_logs',
+	    url: '/api/activity_logs',
 	    data: { activity_log: { activity_id: activity.id } }
 	  });
 	};
@@ -28950,7 +28950,7 @@
 	
 	var _activities_sort2 = _interopRequireDefault(_activities_sort);
 	
-	var _activity_closeup = __webpack_require__(401);
+	var _activity_closeup = __webpack_require__(377);
 	
 	var _activity_closeup2 = _interopRequireDefault(_activity_closeup);
 	
@@ -32395,9 +32395,6 @@
 	
 	function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
 	
-	// import { Link, withRouter } from 'react-router';
-	// import { connect } from 'react-redux';
-	
 	var ActivityProgress = function ActivityProgress(_ref) {
 	  _objectDestructuringEmpty(_ref);
 	
@@ -32563,24 +32560,41 @@
 	  value: true
 	});
 	
-	var _redux = __webpack_require__(175);
+	var _react = __webpack_require__(1);
 	
-	var _root_reducer = __webpack_require__(378);
-	
-	var _root_reducer2 = _interopRequireDefault(_root_reducer);
-	
-	var _reduxThunk = __webpack_require__(400);
-	
-	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+	var _react2 = _interopRequireDefault(_react);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var configureStore = function configureStore() {
-	  var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	  return (0, _redux.createStore)(_root_reducer2.default, preloadedState, (0, _redux.applyMiddleware)(_reduxThunk2.default));
+	var ActivityCloseup = function ActivityCloseup(_ref) {
+	  var activity = _ref.activity,
+	      closeCloseup = _ref.closeCloseup;
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'background-closeup', onClick: closeCloseup },
+	    _react2.default.createElement(
+	      'a',
+	      { href: '#', className: 'closeup' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'closeup-name' },
+	        activity.name
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'closeup-description' },
+	        activity.description
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'closeup-value' },
+	        activity.value
+	      )
+	    )
+	  );
 	};
 	
-	exports.default = configureStore;
+	exports.default = ActivityCloseup;
 
 /***/ }),
 /* 378 */
@@ -32594,15 +32608,44 @@
 	
 	var _redux = __webpack_require__(175);
 	
-	var _session_reducer = __webpack_require__(379);
+	var _root_reducer = __webpack_require__(379);
+	
+	var _root_reducer2 = _interopRequireDefault(_root_reducer);
+	
+	var _reduxThunk = __webpack_require__(401);
+	
+	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var configureStore = function configureStore() {
+	  var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  return (0, _redux.createStore)(_root_reducer2.default, preloadedState, (0, _redux.applyMiddleware)(_reduxThunk2.default));
+	};
+	
+	exports.default = configureStore;
+
+/***/ }),
+/* 379 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _redux = __webpack_require__(175);
+	
+	var _session_reducer = __webpack_require__(380);
 	
 	var _session_reducer2 = _interopRequireDefault(_session_reducer);
 	
-	var _activity_reducer = __webpack_require__(398);
+	var _activity_reducer = __webpack_require__(399);
 	
 	var _activity_reducer2 = _interopRequireDefault(_activity_reducer);
 	
-	var _activity_stats_reducer = __webpack_require__(399);
+	var _activity_stats_reducer = __webpack_require__(400);
 	
 	var _activity_stats_reducer2 = _interopRequireDefault(_activity_stats_reducer);
 	
@@ -32617,7 +32660,7 @@
 	exports.default = RootReducer;
 
 /***/ }),
-/* 379 */
+/* 380 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32628,7 +32671,7 @@
 	
 	var _session_actions = __webpack_require__(259);
 	
-	var _merge = __webpack_require__(380);
+	var _merge = __webpack_require__(381);
 	
 	var _merge2 = _interopRequireDefault(_merge);
 	
@@ -32661,11 +32704,11 @@
 	exports.default = SessionReducer;
 
 /***/ }),
-/* 380 */
+/* 381 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseMerge = __webpack_require__(381),
-	    createAssigner = __webpack_require__(388);
+	var baseMerge = __webpack_require__(382),
+	    createAssigner = __webpack_require__(389);
 	
 	/**
 	 * This method is like `_.assign` except that it recursively merges own and
@@ -32706,13 +32749,13 @@
 
 
 /***/ }),
-/* 381 */
+/* 382 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var Stack = __webpack_require__(274),
-	    assignMergeValue = __webpack_require__(382),
-	    baseFor = __webpack_require__(383),
-	    baseMergeDeep = __webpack_require__(385),
+	    assignMergeValue = __webpack_require__(383),
+	    baseFor = __webpack_require__(384),
+	    baseMergeDeep = __webpack_require__(386),
 	    isObject = __webpack_require__(292),
 	    keysIn = __webpack_require__(337);
 	
@@ -32753,7 +32796,7 @@
 
 
 /***/ }),
-/* 382 */
+/* 383 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var baseAssignValue = __webpack_require__(314),
@@ -32779,10 +32822,10 @@
 
 
 /***/ }),
-/* 383 */
+/* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var createBaseFor = __webpack_require__(384);
+	var createBaseFor = __webpack_require__(385);
 	
 	/**
 	 * The base implementation of `baseForOwn` which iterates over `object`
@@ -32801,7 +32844,7 @@
 
 
 /***/ }),
-/* 384 */
+/* 385 */
 /***/ (function(module, exports) {
 
 	/**
@@ -32832,23 +32875,23 @@
 
 
 /***/ }),
-/* 385 */
+/* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var assignMergeValue = __webpack_require__(382),
+	var assignMergeValue = __webpack_require__(383),
 	    cloneBuffer = __webpack_require__(340),
 	    cloneTypedArray = __webpack_require__(371),
 	    copyArray = __webpack_require__(341),
 	    initCloneObject = __webpack_require__(372),
 	    isArguments = __webpack_require__(321),
 	    isArray = __webpack_require__(323),
-	    isArrayLikeObject = __webpack_require__(386),
+	    isArrayLikeObject = __webpack_require__(387),
 	    isBuffer = __webpack_require__(324),
 	    isFunction = __webpack_require__(291),
 	    isObject = __webpack_require__(292),
 	    isPlainObject = __webpack_require__(177),
 	    isTypedArray = __webpack_require__(327),
-	    toPlainObject = __webpack_require__(387);
+	    toPlainObject = __webpack_require__(388);
 	
 	/**
 	 * A specialized version of `baseMerge` for arrays and objects which performs
@@ -32931,7 +32974,7 @@
 
 
 /***/ }),
-/* 386 */
+/* 387 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isArrayLike = __webpack_require__(335),
@@ -32970,7 +33013,7 @@
 
 
 /***/ }),
-/* 387 */
+/* 388 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var copyObject = __webpack_require__(317),
@@ -33008,11 +33051,11 @@
 
 
 /***/ }),
-/* 388 */
+/* 389 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseRest = __webpack_require__(389),
-	    isIterateeCall = __webpack_require__(397);
+	var baseRest = __webpack_require__(390),
+	    isIterateeCall = __webpack_require__(398);
 	
 	/**
 	 * Creates a function like `_.assign`.
@@ -33051,12 +33094,12 @@
 
 
 /***/ }),
-/* 389 */
+/* 390 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var identity = __webpack_require__(390),
-	    overRest = __webpack_require__(391),
-	    setToString = __webpack_require__(393);
+	var identity = __webpack_require__(391),
+	    overRest = __webpack_require__(392),
+	    setToString = __webpack_require__(394);
 	
 	/**
 	 * The base implementation of `_.rest` which doesn't validate or coerce arguments.
@@ -33074,7 +33117,7 @@
 
 
 /***/ }),
-/* 390 */
+/* 391 */
 /***/ (function(module, exports) {
 
 	/**
@@ -33101,10 +33144,10 @@
 
 
 /***/ }),
-/* 391 */
+/* 392 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var apply = __webpack_require__(392);
+	var apply = __webpack_require__(393);
 	
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeMax = Math.max;
@@ -33143,7 +33186,7 @@
 
 
 /***/ }),
-/* 392 */
+/* 393 */
 /***/ (function(module, exports) {
 
 	/**
@@ -33170,11 +33213,11 @@
 
 
 /***/ }),
-/* 393 */
+/* 394 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseSetToString = __webpack_require__(394),
-	    shortOut = __webpack_require__(396);
+	var baseSetToString = __webpack_require__(395),
+	    shortOut = __webpack_require__(397);
 	
 	/**
 	 * Sets the `toString` method of `func` to return `string`.
@@ -33190,12 +33233,12 @@
 
 
 /***/ }),
-/* 394 */
+/* 395 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var constant = __webpack_require__(395),
+	var constant = __webpack_require__(396),
 	    defineProperty = __webpack_require__(315),
-	    identity = __webpack_require__(390);
+	    identity = __webpack_require__(391);
 	
 	/**
 	 * The base implementation of `setToString` without support for hot loop shorting.
@@ -33218,7 +33261,7 @@
 
 
 /***/ }),
-/* 395 */
+/* 396 */
 /***/ (function(module, exports) {
 
 	/**
@@ -33250,7 +33293,7 @@
 
 
 /***/ }),
-/* 396 */
+/* 397 */
 /***/ (function(module, exports) {
 
 	/** Used to detect hot functions by number of calls within a span of milliseconds. */
@@ -33293,7 +33336,7 @@
 
 
 /***/ }),
-/* 397 */
+/* 398 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var eq = __webpack_require__(279),
@@ -33329,7 +33372,7 @@
 
 
 /***/ }),
-/* 398 */
+/* 399 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33342,7 +33385,7 @@
 	
 	var _activity_sort_actions = __webpack_require__(270);
 	
-	var _merge = __webpack_require__(380);
+	var _merge = __webpack_require__(381);
 	
 	var _merge2 = _interopRequireDefault(_merge);
 	
@@ -33377,7 +33420,7 @@
 	exports.default = ActivityReducer;
 
 /***/ }),
-/* 399 */
+/* 400 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33390,7 +33433,7 @@
 	
 	var _activity_actions = __webpack_require__(267);
 	
-	var _merge = __webpack_require__(380);
+	var _merge = __webpack_require__(381);
 	
 	var _merge2 = _interopRequireDefault(_merge);
 	
@@ -33423,7 +33466,7 @@
 	exports.default = ActivityStatsReducer;
 
 /***/ }),
-/* 400 */
+/* 401 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -33449,52 +33492,6 @@
 	thunk.withExtraArgument = createThunkMiddleware;
 	
 	exports['default'] = thunk;
-
-/***/ }),
-/* 401 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ActivityCloseup = function ActivityCloseup(_ref) {
-	  var activity = _ref.activity,
-	      closeCloseup = _ref.closeCloseup;
-	  return _react2.default.createElement(
-	    'div',
-	    { className: 'background-closeup', onClick: closeCloseup },
-	    _react2.default.createElement(
-	      'a',
-	      { href: '#', className: 'closeup' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'closeup-name' },
-	        activity.name
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'closeup-description' },
-	        activity.description
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'closeup-value' },
-	        activity.value
-	      )
-	    )
-	  );
-	};
-	
-	exports.default = ActivityCloseup;
 
 /***/ })
 /******/ ]);

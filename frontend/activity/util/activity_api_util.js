@@ -1,7 +1,7 @@
 export const createActivity = (activity) => {
   return $.ajax({
     method: 'POST',
-    url: 'api/activities',
+    url: '/api/activities',
     data: activity
   });
 };
@@ -10,14 +10,14 @@ export const createActivity = (activity) => {
 export const fetchActivities = () => {
   return $.ajax ({
     method: 'GET',
-    url: 'api/activities'
+    url: '/api/activities'
   })
 }
 
 export const logActivity = (activity) => {
   return $.ajax ({
     method: 'POST',
-    url: 'api/activity_logs',
+    url: '/api/activity_logs',
     data: {activity_log: {activity_id: activity.id}}
   })
 }
