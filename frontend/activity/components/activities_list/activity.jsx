@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { logActivity } from '../../actions/activity_actions'
+// import { logActivity } from '../../actions/activity_actions'
 import ActivityProgress from './activity_progress'
 import '../../scss/activity.scss';
 
@@ -9,7 +9,7 @@ const mapStateToProps = ({}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  logActivity: activity => dispatch(logActivity(activity))
+  // logActivity: activity => dispatch(logActivity(activity))
 });
 
 class Activity extends React.Component {

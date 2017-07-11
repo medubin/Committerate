@@ -1,8 +1,26 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import '../../scss/activity_closeup.scss';
+import { logActivity } from '../../actions/activity_actions'
+
+const mapStateToProps = ({}) => ({
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  logActivity: activity => dispatch(logActivity(activity))
+});
 
 class ActivityCloseup extends React.Component {
 
+    constructor(props) {
+      super(props);
+      this.handleClick = this.handleClick.bind(this)
+    }
+
+    handleClick(e) {
+      e.preventDefault();
+      this.props.logActivity(this.props.activity)
+    }
 
   render() {
     let activityType = 'activity-' + (this.props.activity.value > 0 ? 'good' : 'bad')
@@ -15,7 +33,7 @@ class ActivityCloseup extends React.Component {
 
     return (
       <div className='background-closeup' onClick={this.props.closeCloseup}>
-        <a href='#' className='closeup'>
+        <a href='#' className='closeup' onClick={this.handleClick}>
           <div className='closeup-name'>
             {name}
           </div>
@@ -34,4 +52,7 @@ class ActivityCloseup extends React.Component {
 }
 
 
-export default ActivityCloseup;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ActivityCloseup);
