@@ -42,26 +42,26 @@ class NewActivityForm extends React.Component {
 
   render() {
     return (
-      <div className="form-main">
-        <div className="form-form">
+      <div className="form-container">
+        <div className="form">
           <form onSubmit={this.handleSubmit} >
 
             <p className='form-item'>
-              <label className='form-item-label' htmlFor="username">Name</label>
-              <input className='form-item-input' type="text" name="Name" onChange={this.update('name')} />
-              <span className='form-item-description'>Name</span>
+              <label className='label' htmlFor="username">Name</label>
+              <input className='input' type="text" name="Name" onChange={this.update('name')} />
+              <span className='description'>Name</span>
             </p>
 
             <p className='form-item'>
-              <label className='form-item-label' htmlFor="username">Description</label>
-              <input className='form-item-input' type="text" name="Name" onChange={this.update('description')} />
-              <span className='form-item-description'>Description</span>
+              <label className='label' htmlFor="username">Description</label>
+              <input className='input' type="text" name="Name" onChange={this.update('description')} />
+              <span className='description'>Description</span>
             </p>
 
             <p className='form-item'>
-              <label className='form-item-label' htmlFor="username">Value</label>
-              <input className='form-item-input' type="text" name="value" onChange={this.update('value')} />
-              <span className='form-item-description'>Value</span>
+              <label className='label' htmlFor="username">Value</label>
+              <input className='input' type="text" name="value" onChange={this.update('value')} />
+              <span className='description'>Value</span>
             </p>
             <input type="submit" value="Submit" className="submit-button" />
 

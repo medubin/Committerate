@@ -106,8 +106,8 @@ class SessionForm extends React.Component {
 		}
 
 		return (
-			<div className="form-main">
-        <div className="form-form">
+			<div className="form-container">
+        <div className="form">
   				<form onSubmit={this.handleSubmit} >
   					Welcome to Commiter!
   					<br/>
@@ -115,15 +115,15 @@ class SessionForm extends React.Component {
   					{this.renderErrors()}
 
             <p className='form-item'>
-              <label className='form-item-label' htmlFor="username">Username</label>
-              <input className='form-item-input' type="text" name="Username" onChange={this.update('username')} />
-              <span className='form-item-description'>Username</span>
+              <label className='label' htmlFor="username">Username</label>
+              <input className='input' type="text" name="Username" onChange={this.update('username')} />
+              <span className='description'>Username</span>
             </p>
 
             <p className='form-item'>
-              <label className='form-item-label' htmlFor="password">Password</label>
-              <input className='form-item-input' type="password" name="Password" onChange={this.update('password')} />
-              <span className='form-item-description'>Password</span>
+              <label className='label' htmlFor="password">Password</label>
+              <input className='input' type="password" name="Password" onChange={this.update('password')} />
+              <span className='description'>Password</span>
             </p>
 
   					{ signUpOptions }

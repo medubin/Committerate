@@ -69,7 +69,7 @@ class ActivitiesList extends React.Component {
   renderCloseup() {
     let selected = this.state.selected
     if (selected && this.props.activities[selected]) {
-      return <ActivityCloseup activity={this.props.activities[0]} closeCloseup={() => this.closeCloseup()} />
+      return <ActivityCloseup activity={this.props.activities[selected]} closeCloseup={() => this.closeCloseup()} />
     }
   }
 

@@ -1,3 +1,5 @@
+@import '../../app/scss/_colors';
+
 .background-closeup {
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -23,11 +25,15 @@
   width: 60%;
   height: 60%;
 
+
   .closeup-name {
     display: block;
     max-width: 80%;
     font-size: 32px;
     line-height: 36px;
+    border-bottom: 1px solid #DDDDDD;
+    margin-bottom: 10px;
+    text-align: center;
   }
 
   .closeup-description {
@@ -36,9 +42,30 @@
   }
 
   .closeup-value {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 16px;
+    vertical-align: middle;
+    text-align: center;
+    // top: 5px;
+    // right: 5px;
+    font-size: 15em;
+    z-index: -1;
   }
+}
+
+
+.closeup-button {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	width: 100%;
+	padding: 3%;
+	background: #43D1AF;
+	border-bottom: 2px solid $PRIMARY_COLOR;
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	color: #fff;
+}
+
+.closeup-button:hover{
+ 	background: $PRIMARY_COLOR_SELECTED;
 }
