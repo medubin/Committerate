@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router';
-import Field from './_field'
 import { connect } from 'react-redux';
 import { login, logout, signup } from '../actions/session_actions';
-import '../../app/scss/form.scss'
+import Form from '../../app/components/form'
 
 
 
@@ -23,7 +22,7 @@ const mapDispatchToProps = (dispatch, { location }) => {
 };
 
 
-class SessionForm extends React.Component {
+class SessionForm extends Form {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -45,11 +44,6 @@ class SessionForm extends React.Component {
 		}
 	}
 
-	update(field) {
-		return e => this.setState({
-			[field]: e.currentTarget.value
-		});
-	}
 
 	handleSubmit(e) {
 		e.preventDefault();
@@ -82,55 +76,24 @@ class SessionForm extends React.Component {
 		}
 	}
 
-	renderErrors() {
-		return(
-			<ul>
-				{this.props.errors.concat(this.state.errors).map((error, i) => (
-					<li key={`error-${i}`}>
-						{error}
-					</li>
-				))}
-			</ul>
-		);
-	}
+  generateFields() {
+    let fields = [
+      {name: 'Username', description: 'Username', type: 'text', state: 'username'},
+      {name: 'Password', description: 'Password', type: 'password', state: 'password'}
+    ]
+    if (this.props.formType === 'signup') {
+      fields.push({name: 'Password', description: 'Retype password', type: 'password', state: 'passwordCheck'})
+    }
+    return fields
+  }
 
 	render() {
-		let signUpOptions;
-		if (this.props.formType === 'signup') {
-			signUpOptions =
-      <p className='form-item'>
-        <label className='form-item-label' htmlFor="password-validate">Password</label>
-        <input className='form-item-input' type="password" name="Password Validation" onChange={this.update('passwordCheck')} />
-        <span className='form-item-description'>Retype password</span>
-      </p>
-		}
-
 		return (
 			<div className="form-container">
-        <div className="form">
-  				<form onSubmit={this.handleSubmit} >
-  					Welcome to Commiter!
-  					<br/>
-  					Please {this.props.formType} or {this.navLink()}
-  					{this.renderErrors()}
-
-            <p className='form-item'>
-              <label className='label' htmlFor="username">Username</label>
-              <input className='input' type="text" name="Username" onChange={this.update('username')} />
-              <span className='description'>Username</span>
-            </p>
-
-            <p className='form-item'>
-              <label className='label' htmlFor="password">Password</label>
-              <input className='input' type="password" name="Password" onChange={this.update('password')} />
-              <span className='description'>Password</span>
-            </p>
-
-  					{ signUpOptions }
-  					<input type="submit" value="Submit" className="submit-button" />
-
-  				</form>
-        </div>
+        Welcome to Commiter!
+        <br/>
+        Please {this.props.formType} or {this.navLink()}
+        {this.renderForm()}
 			</div>
 		);
 	}
