@@ -32,6 +32,9 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'jquery-rails'
 
+# Foreman is a utility for managing multiple processes.
+gem 'foreman', '~> 0.82.0'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
